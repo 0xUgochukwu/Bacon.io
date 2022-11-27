@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #08081E;
+}
+
+.button {
+  background: linear-gradient(
+    90.32deg,
+    #3940de -5.28%,
+    #8f00ff 109.58%,
+    #9539de 164.37%
+  );
+}
+
+.border {
+  border: 2px solid
+    linear-gradient(90.32deg, #3940de -5.28%, #8f00ff 109.58%, #9539de 164.37%);
+}
+
+.team {
+  background-image: url('./assets/circle.svg');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: inherit;
+}
+
+.highlightt {
+  color: black;
+}
