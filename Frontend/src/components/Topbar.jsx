@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { PROGRAMS_ROUTE } from '../constants/routes'
 
 const Topbar = () => {
   return (
@@ -25,7 +26,7 @@ const Topbar = () => {
         </Link>
       </div>
 
-      <Link to='/new-program'>
+      <Link to={PROGRAMS_ROUTE}>
         <div className='font-main py-[10px] px-[24px]  rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] cursor-pointer'>
           New Program
         </div>

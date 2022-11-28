@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {lazy, Suspense} from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { Topbar } from './components'
+import { PROGRAMS_ROUTE } from './constants/routes'
 import {
   Home,
   About,
@@ -10,6 +11,7 @@ import {
   Ecosystem,
   NewProgram,
   ViewProject,
+  Programs
 } from './pages/index'
 
 const App = () => {
@@ -17,7 +19,7 @@ const App = () => {
     <>
       <div className='font-main bg-primary text-white '>
         <Topbar />
-        <div className=''>
+        <div className= '' >
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
@@ -26,6 +28,7 @@ const App = () => {
             <Route path='/view-program/:programId' element={<ViewProject />} />
             <Route path='/community' element={<Community />} />
             <Route path='/ecosystem' element={<Ecosystem />} />
+            <Route path={PROGRAMS_ROUTE} element={<Programs />} />
           </Routes>
         </div>
       </div>
