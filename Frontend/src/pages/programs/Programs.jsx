@@ -1,6 +1,5 @@
 import React from "react";
-import { Footer } from "../../components";
-import Hero from "../../components/Hero";
+import { Footer, Wallet } from "../../components";
 
 const Programs = () => {
   return (
@@ -9,6 +8,10 @@ const Programs = () => {
         <h1 className="font-main font-bold text-[40px] leading-[52px] text-white">
           Programs
         </h1>
+        <div className="flex flex-row justify-end">
+          <Wallet />
+        </div>
+
         <div className="w-[50%] mx-auto">
           <div className="flex flex-row mt-16 w-[100%] gap-4">
             <button className="font-main py-[35.5px] w-[49%] justify-center border rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] text-center ">

@@ -9,8 +9,10 @@ import profile from "./profile.png";
 import circle from "./circle.svg";
 import popular from "./popular.svg";
 import arrowUp from "./arrowUp.svg";
+import deleteIc from "./delete.svg";
 
 export {
+  deleteIc,
   arrowUp,
   hero,
   bill,
