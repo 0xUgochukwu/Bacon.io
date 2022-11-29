@@ -26,14 +26,14 @@ const Hero = () => {
           </p>
           <div className='flex'>
             <Link to='/new-program'>
-              <button className='font-main py-[13.5px] px-[15.5px] rounded-[20px] button font-semibold text-[20px] flex items-center leading-[26px] '>
-                New Program
+              <button className='font-main py-[13.5px] px-[33.5px] rounded-[20px] button font-semibold text-[20px] flex items-center leading-[26px] '>
+                Programs
               </button>
             </Link>
 
             <button className='font-main  rounded-[20px] w-[196px] h-[53px] ml-[25px] text-[20px] leading-[26px] font-semibold button flex justify-center items-center'>
               <p className='bg-primary w-[194px] h-[51px] rounded-[20px] flex justify-center items-center '>
-                View Program
+                Learn More
               </p>
             </button>
           </div>

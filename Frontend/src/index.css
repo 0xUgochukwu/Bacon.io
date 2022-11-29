@@ -26,10 +26,14 @@ body {
 .team {
   background-image: url('./assets/circle.svg');
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: left bottom;
   background-size: inherit;
 }
 
 .highlightt {
   color: black;
+}
+
+.body{
+  min-height: calc(100vh - 100px);
 }

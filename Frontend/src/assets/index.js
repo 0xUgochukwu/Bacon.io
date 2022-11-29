@@ -8,6 +8,7 @@ import wager from './wager.svg'
 import profile from './profile.png'
 import circle from './circle.svg'
 import popular from './popular.svg'
+import backtoTop from './backtoTop.svg'
 
 export {
   hero,
@@ -20,4 +21,5 @@ export {
   profile,
   circle,
   popular,
+  backtoTop,
 }
