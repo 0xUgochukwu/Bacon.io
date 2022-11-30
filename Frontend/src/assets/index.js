@@ -1,13 +1,14 @@
-import hero from "./hero.svg";
-import bill from "./bill.svg";
-import escrow from "./escrow.svg";
-import groupsaving from "./groupsaving.svg";
-import safelock from "./safelock.svg";
-import saving from "./saving.svg";
-import wager from "./wager.svg";
-import profile from "./profile.png";
-import circle from "./circle.svg";
-import popular from "./popular.svg";
+import hero from './hero.svg'
+import bill from './bill.svg'
+import escrow from './escrow.svg'
+import groupsaving from './groupsaving.svg'
+import safelock from './safelock.svg'
+import saving from './saving.svg'
+import wager from './wager.svg'
+import profile from './profile.png'
+import circle from './circle.svg'
+import popular from './popular.svg'
+import backtoTop from './backtoTop.svg'
 import arrowUp from "./arrowUp.svg";
 import deleteIc from "./delete.svg";
 import plus from "./pluss.svg";
@@ -32,4 +33,5 @@ export {
   profile,
   circle,
   popular,
-};
+  backtoTop,
+}

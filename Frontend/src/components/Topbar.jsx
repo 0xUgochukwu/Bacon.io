@@ -28,7 +28,7 @@ const Topbar = () => {
 
       <Link to={PROGRAMS_ROUTE}>
         <div className='font-main py-[10px] px-[24px]  rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] cursor-pointer'>
-          New Program
+        Programs
         </div>
       </Link>
     </div>

@@ -1,12 +1,13 @@
 import React from 'react'
-import { Program } from '../components'
+import { Program, Footer } from '../components/index'
 
 const NewProgram = () => {
   return (
-    <div className=''>
-      <Program/>
-      
-    </div>
+    <>
+      <div className=''>
+        <Program />
+      </div>
+    </>
   )
 }
 
