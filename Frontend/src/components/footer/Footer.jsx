@@ -10,19 +10,29 @@ const Footer = () => {
       </div>
       <div className=" flex justify-evenly items-center w-[536px] ">
         <Link to="/">
-          <p className="font-header text-[23px] leading-[38px] font-semibold">Home</p>
+          <p className="font-header text-[23px] leading-[38px] font-normal">
+            Home
+          </p>
         </Link>
         <Link to="/about">
-          <button className="font-header text-[23px] leading-[38px] font-semibold">About</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">
+            About
+          </button>
         </Link>
         <Link to="/docs">
-          <button className="font-main text-[23px] leading-[38px] font-semibold">Docs</button>
+          <button className="font-main text-[23px] leading-[38px] font-normal">
+            Docs
+          </button>
         </Link>
         <Link to="/community">
-          <button className="font-header text-[23px] leading-[38px] font-semibold">Community</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">
+            Community
+          </button>
         </Link>
         <Link to="/ecosystem">
-          <button className="font-header text-[23px] leading-[38px] font-semibold">Ecosystem</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">
+            Ecosystem
+          </button>
         </Link>
       </div>
       <img src={arrowUp} alt="" />

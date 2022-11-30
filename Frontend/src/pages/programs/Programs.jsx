@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Footer, Wallet } from "../../components";
+import { New_PERSONAL_SAVINGS_ROUTE } from "../../constants/routes";
 
 const Programs = () => {
+  const navigate = useNavigate();
+
+  const handlePersonalSavings = () => {
+    navigate(New_PERSONAL_SAVINGS_ROUTE);
+  };
   return (
     <div className="flex flex-col h-[90vh]">
       <main className="ml-[78px] mr-[66px] pt-16 mb-auto">
@@ -14,7 +21,10 @@ const Programs = () => {
 
         <div className="w-[50%] mx-auto">
           <div className="flex flex-row mt-16 w-[100%] gap-4">
-            <button className="font-main py-[35.5px] w-[49%] justify-center border rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] text-center ">
+            <button
+              onClick={handlePersonalSavings}
+              className="font-main py-[35.5px] w-[49%] justify-center border rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] text-center "
+            >
               Personal Savings
             </button>
 

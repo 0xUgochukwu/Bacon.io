@@ -6,6 +6,7 @@ import Ecosystem from "./Ecosystem";
 import NewProgram from "./NewProgram";
 import ViewProject from "./ViewProject";
 import Programs from "./programs/Programs";
+import NewPersonalSavings from "./newPersonalSavings/NewPersonalSavings";
 
 export {
   Home,
@@ -16,4 +17,5 @@ export {
   NewProgram,
   ViewProject,
   Programs,
+  NewPersonalSavings
 };

@@ -10,8 +10,16 @@ import circle from "./circle.svg";
 import popular from "./popular.svg";
 import arrowUp from "./arrowUp.svg";
 import deleteIc from "./delete.svg";
+import plus from "./pluss.svg";
+import cart from "./cart.svg";
+import programTitle from "./programTitle.svg";
+import viewReport from "./viewReport.svg";
 
 export {
+  viewReport,
+  plus,
+  programTitle,
+  cart,
   deleteIc,
   arrowUp,
   hero,
