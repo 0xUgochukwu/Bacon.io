@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Topbar, Footer } from './components/index'
+import { New_PERSONAL_SAVINGS_ROUTE, PROGRAMS_ROUTE, PERSONAL_SAVINGS_DETAILS_ROUTE } from './constants/routes';
 import {
   Home,
   About,
@@ -9,7 +10,10 @@ import {
   Ecosystem,
   NewProgram,
   ViewProject,
-} from './pages/index'
+  Programs,
+  NewPersonalSavings,
+} from "./pages/index";
+import PersonalSavingsDetails from "./pages/personalSavingsDetails/PersonalSavingsDetails";
 
 const App = () => {
   return (
@@ -29,6 +33,9 @@ const App = () => {
               />
               <Route path='/community' element={<Community />} />
               <Route path='/ecosystem' element={<Ecosystem />} />
+              <Route path={PROGRAMS_ROUTE} element={<Programs />} />
+              <Route path={New_PERSONAL_SAVINGS_ROUTE} element={<NewPersonalSavings />} />
+              <Route path={PERSONAL_SAVINGS_DETAILS_ROUTE} element={<PersonalSavingsDetails />} />
             </Routes>
           </div>
 
@@ -38,7 +45,7 @@ const App = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

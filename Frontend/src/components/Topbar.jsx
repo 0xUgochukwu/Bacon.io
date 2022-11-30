@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { PROGRAMS_ROUTE } from '../constants/routes'
 
 const Topbar = () => {
   return (
@@ -9,23 +10,23 @@ const Topbar = () => {
       </div>
       <div className=' flex justify-evenly items-center w-[536px] '>
         <Link to='/'>
-          <button>Home</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">Home</button>
         </Link>
         <Link to='/about'>
-          <button>About</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">About</button>
         </Link>
         <Link to='/docs'>
-          <button>Docs</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">Docs</button>
         </Link>
         <Link to='/community'>
-          <button>Community</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">Community</button>
         </Link>
         <Link to='/ecosystem'>
-          <button>Ecosystem</button>
+          <button className="font-header text-[23px] leading-[38px] font-normal">Ecosystem</button>
         </Link>
       </div>
 
-      <Link to='/new-program'>
+      <Link to={PROGRAMS_ROUTE}>
         <div className='font-main py-[10px] px-[24px]  rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] cursor-pointer'>
         Programs
         </div>
