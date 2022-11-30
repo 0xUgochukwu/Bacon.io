@@ -4,15 +4,24 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract AnnualBudget {
-    uint256 public unlockTime;
-    uint256 public budgetCount = 0;
-    uint256 public initialBudgetFunds;
-    address payable public owner;
-    ERC20 public maticContractAddress;
+  
+
+    // ===========================
+    // EVENTS
+    // ===========================
 
     event ItemRemoved(uint256 indexed ID);
-
     event Withdrawal(uint256 amount, uint256 when);
+     event BudgetCreated(
+        uint256 indexed ID,
+        uint256 indexed amount,
+        string indexed content,
+        bool created
+    );
+
+    // ===========================
+    // CUSTOM ERROR
+    // ===========================
 
     error transferFailed();
     error amountEqualZero();
@@ -20,12 +29,15 @@ contract AnnualBudget {
     error notYetTime();
     error doesNotExist();
 
-    event BudgetCreated(
-        uint256 indexed ID,
-        uint256 indexed amount,
-        string indexed content,
-        bool created
-    );
+    // ===========================
+    // STATE VARIABLE
+    // ===========================
+
+    uint256 public unlockTime;
+    uint256 public budgetCount = 0;
+    uint256 public initialBudgetFunds;
+    address payable public owner;
+    ERC20 public maticContractAddress;
 
     struct budgetItems {
         uint256 ID;
@@ -39,6 +51,8 @@ contract AnnualBudget {
     mapping(uint256 => budgetItems) public Budgets;
     mapping(uint256 => bool) public removeItem;
 
+    // @param _maticContractAddress to initialize the token used to transact with the contract
+    // @param _unLockTime to fix the unlocktime for the budget period
     constructor(address _maticContractAddress, uint256 _unLockTime)  {
         require(block.timestamp < _unLockTime, "Not Yet Christmas");
 
@@ -48,6 +62,7 @@ contract AnnualBudget {
     
     }
 
+    // @notice this function is used to create new budget and add to the list of budgets
     function createBudget(string memory _item, uint256 _maticAmount) public {
        
         if (Budgets[budgetCount].created == true) {
@@ -63,10 +78,12 @@ contract AnnualBudget {
         budgetCount++;
     }
 
+    // @notice this function is used to read the list of budget created on the contract
     function myList() external view returns(budgetItems[] memory){
         return myBudgetList;
     } 
 
+    // @notice this funtion is used to read the item of the list according to the item id
     function listItem(uint256 _ID) external view returns(budgetItems memory){
         return Budgets[_ID];
     }
@@ -75,6 +92,7 @@ contract AnnualBudget {
         return ERC20(maticContractAddress).balanceOf(address(this));
     }
 
+    // @notice this function is used to remove item from the list of budgets
     function removeItems(uint256 _ID) public {
         if (msg.sender == owner) {
             revert notOwner();
@@ -88,6 +106,7 @@ contract AnnualBudget {
         delete Budgets[_ID];
     }
 
+    // @notice this function is used to withdraw the total token locked up on the contract and transfer to owner
     function withdraw() public {
         if (block.timestamp <= unlockTime) 
         revert ("Not Yet Time");
@@ -109,6 +128,7 @@ contract AnnualBudget {
 
     }
 
+    // @notice this function is used to deposit funds for future use at the end of unlocktime
     function depositBudgetFund(uint256 amount) public payable {
         require(msg.sender != address(0), "Invalid Address");
         require(
