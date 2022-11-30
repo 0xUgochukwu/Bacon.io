@@ -10,6 +10,7 @@ const ProgramItem = ({
   onCostDec,
   onCostChange,
   onQtyChange,
+  onRemove,
 }) => {
   return (
     <tr>
@@ -37,7 +38,7 @@ const ProgramItem = ({
           <input
             value={item.quantity}
             onChange={(e) => onQtyChange(item.key, Number(e.target.value))}
-            className="w-[32px] p-2 h-[32px] rounded-md outline-none font-main font-bold text-[15px] text-[#999999] leading-[20px] flex items-center justify-center"
+            className="w-[32px] p-2 h-[32px] rounded-md outline-none font-main font-semibold text-[15px] text-[#999999] leading-[20px] flex text-center"
           />
           {editable && (
             <button
@@ -57,7 +58,7 @@ const ProgramItem = ({
             <input
               value={item.cost}
               onChange={(e) => onCostChange(item.key, Number(e.target.value))}
-              className="w-[100%] p-1 h-[100%] bg-[#000000] rounded-xl font-normal outline-none text-white font-main text-[12px]"
+              className="w-[100%] p-1 h-[100%] bg-[#000000] rounded-xl font-semibold outline-none text-white font-main text-[15px] text-center"
             />
           </div>
           {editable && (
@@ -82,6 +83,11 @@ const ProgramItem = ({
           )}
         </div>
       </td>
+      {editable && (
+        <td className="text-[18px] pl-4">
+          <button onClick={() => onRemove(item.key)}> Remove</button>
+        </td>
+      )}
     </tr>
   );
 };

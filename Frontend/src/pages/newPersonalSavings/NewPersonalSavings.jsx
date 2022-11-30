@@ -87,11 +87,16 @@ const NewPersonalSavings = () => {
   const handleDateChange = (e) => {
     setDueDate(e.target.value);
   };
+
+  const handleRemoveItem = (key) => {
+    const updatedItems = items.filter((item) => item.key !== key);
+    setItems(updatedItems);
+  };
   return (
-    <div className="flex flex-col h-[90vh]">
-      <main className="ml-[78px] mr-[66px] pt-16 mb-auto">
+    <div className="flex flex-col">
+      <main className="ml-[78px] mr-[66px] pt-16 mb-16">
         <div className="flex justify-between flex-wrap">
-          <div>
+          <div className="mb-8">
             <h1 className="font-main font-bold text-[40px] leading-[52px]">
               Setup New Personal Savings
             </h1>
@@ -117,6 +122,9 @@ const NewPersonalSavings = () => {
                     <th className="p-4 font-bold text-[20px] leading-6 font-main text-left">
                       Cost
                     </th>
+                    <th className="p-4 font-bold text-[20px] leading-6 font-main text-left">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -132,13 +140,18 @@ const NewPersonalSavings = () => {
                           onQtyInc={handleQtyInc}
                           onCostChange={handleCostChange}
                           onQtyChange={handleQtyChange}
+                          onRemove={handleRemoveItem}
                         />
                       ))}
                     </>
                   ) : (
                     <tr>
-                      <td colSpan={3} className="text-center">
-                        <Jumbotron message="No Items" />
+                      <td></td>
+                      <td></td>
+                      <td className="text-center" colSpan={2}>
+                        <div className="text-center">
+                          <Jumbotron message="No Items" />
+                        </div>
                       </td>
                     </tr>
                   )}
@@ -184,7 +197,6 @@ const NewPersonalSavings = () => {
           </button>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

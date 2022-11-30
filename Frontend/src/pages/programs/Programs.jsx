@@ -10,8 +10,8 @@ const Programs = () => {
     navigate(New_PERSONAL_SAVINGS_ROUTE);
   };
   return (
-    <div className="flex flex-col h-[90vh]">
-      <main className="ml-[78px] mr-[66px] pt-16 mb-auto">
+    <div className="flex flex-col">
+      <main className="ml-[78px] mr-[66px] pt-16 mb-32">
         <h1 className="font-main font-bold text-[40px] leading-[52px] text-white">
           Programs
         </h1>
@@ -39,9 +39,7 @@ const Programs = () => {
           </button>
         </div>
       </main>
-      <div>
-        <Footer />
-      </div>
+     
     </div>
   );
 };

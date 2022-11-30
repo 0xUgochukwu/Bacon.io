@@ -26,7 +26,7 @@ const Hero = () => {
             financial programs to suit your diverse needs.
           </p>
           <div className='flex'>
-            <Link to='/new-program'>
+            <Link to={PROGRAMS_ROUTE}>
               <button className='font-main py-[13.5px] px-[33.5px] rounded-[20px] button font-semibold text-[20px] flex items-center leading-[26px] '>
                 Programs
               </button>

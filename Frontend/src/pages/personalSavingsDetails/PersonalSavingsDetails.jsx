@@ -30,8 +30,8 @@ const PersonalSavingsDetails = () => {
     },
   ]);
   return (
-    <div className="flex flex-col h-[90vh]">
-      <main className="ml-[78px] mr-[66px] pt-16 mb-auto">
+    <div className="flex flex-col">
+      <main className="ml-[78px] mr-[66px] pt-16 mb-auto mb-16">
         <div className="flex justify-between flex-wrap">
           <div className="mb-4">
             <h1 className="font-main font-bold text-[40px] leading-[52px]">
@@ -44,29 +44,29 @@ const PersonalSavingsDetails = () => {
         <div className="px-[1px] py-[1px]  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16">
           <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4">
             <div className="overflow-auto">
-            <table className="w-[100%]  m-w-[450px]">
-              <thead>
-                <tr>
-                  <th
-                    className="p-4 font-bold text-[20px] leading-6 font-main text-left"
-                    colSpan={2}
-                  >
-                    Items
-                  </th>
-                  <th className="p-4 font-bold text-[20px] leading-6 font-main text-left">
-                    Quantity
-                  </th>
-                  <th className="p-4 font-bold text-[20px] leading-6 font-main text-left">
-                    Cost
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((item) => (
-                  <ProgramItem key={item.key} item={item} editable={false} />
-                ))}
-              </tbody>
-            </table>
+              <table className="w-[100%]  m-w-[450px]">
+                <thead>
+                  <tr>
+                    <th
+                      className="p-4 font-bold text-[20px] leading-6 font-main text-left"
+                      colSpan={2}
+                    >
+                      Items
+                    </th>
+                    <th className="p-4 font-bold text-[20px] leading-6 font-main text-left">
+                      Quantity
+                    </th>
+                    <th className="p-4 font-bold text-[20px] leading-6 font-main text-left">
+                      Cost
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((item) => (
+                    <ProgramItem key={item.key} item={item} editable={false} />
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -89,7 +89,6 @@ const PersonalSavingsDetails = () => {
           </button>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
