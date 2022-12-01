@@ -3,7 +3,7 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { assert, expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("AnnualBudget", function () {
+describe("BudgetDapp", function () {
   // We define a fixture to reuse the same setup in every test.
   // We use loadFixture to run this setup once, snapshot that state,
   // and reset Hardhat Network to that snapshot in every test.
@@ -21,7 +21,7 @@ describe("AnnualBudget", function () {
     const MaticToken = await ethers.getContractFactory("MaticToken");
     const matic = await MaticToken.deploy("Matic","MT");
 
-    const AnnualBudget = await ethers.getContractFactory("AnnualBudget");
+    const AnnualBudget = await ethers.getContractFactory("BudgetDapp");
     const annualbudget = await AnnualBudget.deploy(matic.address, lockTime );
 
     return { annualbudget,matic, unlockTime, initalBudgetAmount, owner, otherAccount };
@@ -70,7 +70,7 @@ describe("AnnualBudget", function () {
         const matic = await MaticToken.deploy("Matic","MT");
 
       const latestTime = await time.latest();
-      const AnnualBudget = await ethers.getContractFactory("AnnualBudget");
+      const AnnualBudget = await ethers.getContractFactory("BudgetDapp");
       await expect(AnnualBudget.deploy(matic.address,latestTime)).to.be.revertedWith(
         "Not Yet Christmas"
       );

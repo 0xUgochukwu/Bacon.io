@@ -9,7 +9,7 @@ async function main() {
   const MaticToken = await ethers.getContractFactory("MaticToken");
   const matic = await MaticToken.deploy("Matic","MT");
 
-  const AnnualBudget = await ethers.getContractFactory("AnnualBudget");
+  const AnnualBudget = await ethers.getContractFactory("BudgetDapp");
   const annualbudget = await AnnualBudget.deploy(matic.address, unlockTime );
 
   await annualbudget.deployed();
