@@ -1,1 +1,7 @@
 node_module/
+
+#Hardhat files
+typechain-types
+cache
+artifacts
+.env
