@@ -14,19 +14,29 @@ const Footer = () => {
         </div>
         <div className=' flex justify-evenly items-center w-[536px] '>
           <Link to='/'>
-            <button>Home</button>
+            <button className=' text-[23px] leading-[38px] font-light'>
+              Home
+            </button>
           </Link>
           <Link to='/about'>
-            <button>About</button>
+            <button className=' text-[23px] leading-[38px] font-normal'>
+              About
+            </button>
           </Link>
           <Link to='/docs'>
-            <button>Docs</button>
+            <button className='text-[23px] leading-[38px] font-normal'>
+              Docs
+            </button>
           </Link>
           <Link to='/community'>
-            <button>Community</button>
+            <button className='text-[23px] leading-[38px] font-normal'>
+              Community
+            </button>
           </Link>
           <Link to='/ecosystem'>
-            <button>Ecosystem</button>
+            <button className=' text-[23px] leading-[38px] font-normal'>
+              Ecosystem
+            </button>
           </Link>
         </div>
         <div>

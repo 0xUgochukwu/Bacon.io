@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #08081E;
+  background-color: #08081e;
 }
 
 .button {
@@ -19,8 +19,7 @@ body {
 }
 
 .border {
-  border: 2px solid
-    linear-gradient(90.32deg, #3940de -5.28%, #8f00ff 109.58%, #9539de 164.37%);
+  border: 4px solid #5affff;
 }
 
 .team {
@@ -34,6 +33,6 @@ body {
   color: black;
 }
 
-.body{
+.body {
   min-height: calc(100vh - 100px);
 }
