@@ -15,6 +15,7 @@ import plus from "./pluss.svg";
 import cart from "./cart.svg";
 import programTitle from "./programTitle.svg";
 import viewReport from "./viewReport.svg";
+import loading from './loading.svg'
 
 export {
   viewReport,
@@ -34,4 +35,5 @@ export {
   circle,
   popular,
   backtoTop,
+  loading
 }

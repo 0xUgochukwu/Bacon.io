@@ -2,7 +2,7 @@ import Team from "./Team";
 import Hero from "./Hero";
 import Topbar from "./Topbar";
 import Program from "./Program";
-import Footer from "./footer/Footer";
+import Footer from "./Footer";
 import Wallet from "./wallet/Wallet";
 import ProgramItem from "./programItem/ProgramItem";
 import ProgressBar from "./progressBar/ProgressBar";
