@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract AnnualBudget {
+contract BudgetDapp {
   
 
     // ===========================
@@ -27,7 +27,6 @@ contract AnnualBudget {
     error amountEqualZero();
     error notOwner();
     error notYetTime();
-    error doesNotExist();
 
     // ===========================
     // STATE VARIABLE
@@ -49,7 +48,6 @@ contract AnnualBudget {
     budgetItems[] myBudgetList;
 
     mapping(uint256 => budgetItems) public Budgets;
-    mapping(uint256 => bool) public removeItem;
 
     // @param _maticContractAddress to initialize the token used to transact with the contract
     // @param _unLockTime to fix the unlocktime for the budget period
@@ -84,8 +82,13 @@ contract AnnualBudget {
     } 
 
     // @notice this funtion is used to read the item of the list according to the item id
-    function listItem(uint256 _ID) external view returns(budgetItems memory){
-        return Budgets[_ID];
+    function listItem(uint256 _ID) external view returns(budgetItems memory value){
+        uint256 length = myBudgetList.length;
+
+        for(uint256 i; i < length;i++){
+        
+            value =  myBudgetList[_ID];   
+        }
     }
 
     function balance() public view returns(uint256 contractBalance){
@@ -94,16 +97,16 @@ contract AnnualBudget {
 
     // @notice this function is used to remove item from the list of budgets
     function removeItems(uint256 _ID) public {
-        if (msg.sender == owner) {
+     if (msg.sender != owner) {
             revert notOwner();
         }
+        uint256 length = myBudgetList.length;
 
-        if (removeItem[_ID] == true) {
-            revert doesNotExist();
+        for(uint256 i; i < length;i++){
+    
+            delete myBudgetList[_ID];   
         }
 
-        emit ItemRemoved(_ID);
-        delete Budgets[_ID];
     }
 
     // @notice this function is used to withdraw the total token locked up on the contract and transfer to owner

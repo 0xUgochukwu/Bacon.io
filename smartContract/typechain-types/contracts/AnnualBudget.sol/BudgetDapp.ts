@@ -26,9 +26,9 @@ import type {
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../common";
+} from "../../common";
 
-export declare namespace AnnualBudget {
+export declare namespace BudgetDapp {
   export type BudgetItemsStruct = {
     ID: PromiseOrValue<BigNumberish>;
     maticAmount: PromiseOrValue<BigNumberish>;
@@ -44,7 +44,7 @@ export declare namespace AnnualBudget {
   ] & { ID: BigNumber; maticAmount: BigNumber; item: string; created: boolean };
 }
 
-export interface AnnualBudgetInterface extends utils.Interface {
+export interface BudgetDappInterface extends utils.Interface {
   functions: {
     "Budgets(uint256)": FunctionFragment;
     "balance()": FunctionFragment;
@@ -193,12 +193,12 @@ export type WithdrawalEvent = TypedEvent<
 
 export type WithdrawalEventFilter = TypedEventFilter<WithdrawalEvent>;
 
-export interface AnnualBudget extends BaseContract {
+export interface BudgetDapp extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: AnnualBudgetInterface;
+  interface: BudgetDappInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -255,8 +255,8 @@ export interface AnnualBudget extends BaseContract {
       _ID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
-      [AnnualBudget.BudgetItemsStructOutput] & {
-        value: AnnualBudget.BudgetItemsStructOutput;
+      [BudgetDapp.BudgetItemsStructOutput] & {
+        value: BudgetDapp.BudgetItemsStructOutput;
       }
     >;
 
@@ -264,7 +264,7 @@ export interface AnnualBudget extends BaseContract {
 
     myList(
       overrides?: CallOverrides
-    ): Promise<[AnnualBudget.BudgetItemsStructOutput[]]>;
+    ): Promise<[BudgetDapp.BudgetItemsStructOutput[]]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -312,13 +312,13 @@ export interface AnnualBudget extends BaseContract {
   listItem(
     _ID: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<AnnualBudget.BudgetItemsStructOutput>;
+  ): Promise<BudgetDapp.BudgetItemsStructOutput>;
 
   maticContractAddress(overrides?: CallOverrides): Promise<string>;
 
   myList(
     overrides?: CallOverrides
-  ): Promise<AnnualBudget.BudgetItemsStructOutput[]>;
+  ): Promise<BudgetDapp.BudgetItemsStructOutput[]>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -366,13 +366,13 @@ export interface AnnualBudget extends BaseContract {
     listItem(
       _ID: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<AnnualBudget.BudgetItemsStructOutput>;
+    ): Promise<BudgetDapp.BudgetItemsStructOutput>;
 
     maticContractAddress(overrides?: CallOverrides): Promise<string>;
 
     myList(
       overrides?: CallOverrides
-    ): Promise<AnnualBudget.BudgetItemsStructOutput[]>;
+    ): Promise<BudgetDapp.BudgetItemsStructOutput[]>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 

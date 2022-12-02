@@ -29,6 +29,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.AnnualBudget__factory>;
     getContractFactory(
+      name: "BudgetDapp",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BudgetDapp__factory>;
+    getContractFactory(
       name: "MaticToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MaticToken__factory>;
@@ -53,6 +57,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.AnnualBudget>;
+    getContractAt(
+      name: "BudgetDapp",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BudgetDapp>;
     getContractAt(
       name: "MaticToken",
       address: string,
