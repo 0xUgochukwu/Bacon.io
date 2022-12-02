@@ -22,6 +22,7 @@ export const AnnualBudgetProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLoading, isSetLoading] = useState(false)
   const [budgetId, setBudgetId] = useState(localStorage.getItem('budgetId'))
+  const [unlockTime, setUnclockTime] = useState('')
 
   const connectWallet = async () => {
     try {
@@ -85,9 +86,9 @@ export const AnnualBudgetProvider = ({ children }) => {
         isSetLoading(false)
         console.log(`hash is - ${budgetItem.hash}`)
 
-        const budgetId = await annualBudgetContract.budgetCount()
-        console.log(budgetId)
-        setBudgetId(budgetId.toNumber())
+        // const budgetId = await annualBudgetContract.budgetCount()
+        // console.log(budgetId)
+        // setBudgetId(budgetId.toNumber())
       })
     } catch (error) {
       console.log(error)
@@ -100,6 +101,7 @@ export const AnnualBudgetProvider = ({ children }) => {
       const annualBudgetContract = getEthereumContract()
       const budgetList = await annualBudgetContract.myList()
       console.log(budgetList)
+      return budgetList
     } catch (error) {
       console.log(error)
     }
@@ -107,16 +109,20 @@ export const AnnualBudgetProvider = ({ children }) => {
 
   const viewItem = async (id) =>{
     try {
+      isSetLoading(true)
          if (!ethereum) return alert('Please Install metamask')
          const annualBudgetContract = getEthereumContract()
          const listIterm = await annualBudgetContract.listItem(id)
         console.log(listIterm)
     } catch (error) {
         
+    }finally{
+      isSetLoading(false)
     }
   }
-  const removeItem = async(id) =>{
+  const removeItem = async() =>{
     try {
+      isSetLoading(true)
          if (!ethereum) return alert('Please Install metamask')
          const annualBudgetContract = getEthereumContract()
          const txnhash = await annualBudgetContract.removeItems(id)
@@ -124,9 +130,20 @@ export const AnnualBudgetProvider = ({ children }) => {
          console.log(txnhash)
     } catch (error) {
         
+    } finally{
+      isSetLoading(false)
     }
   }
-
+  const getUnLockTime = async() =>{
+    try {
+         if (!ethereum) return 
+         const annualBudgetContract = getEthereumContract()
+         const res = await annualBudgetContract.unlockTime()
+         return res.toString()
+    } catch (error) {
+        
+    } 
+  }
   const deposit = async (cost) => {
     try {
       if (!ethereum) return alert('Please Install metamask')
@@ -174,6 +191,8 @@ export const AnnualBudgetProvider = ({ children }) => {
         viewItem,
         isLoading,
         isSetLoading,
+        getUnLockTime,
+        unlockTime
       }}
     >
       {children}

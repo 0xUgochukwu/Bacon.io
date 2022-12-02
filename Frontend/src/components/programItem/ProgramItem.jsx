@@ -4,12 +4,9 @@ import { cart } from "../../assets";
 const ProgramItem = ({
   editable = true,
   item = {},
-  onQtyInc,
-  onQtyDec,
   onCostInc,
   onCostDec,
   onCostChange,
-  onQtyChange,
   onRemove,
 }) => {
   return (
@@ -20,36 +17,6 @@ const ProgramItem = ({
           <p className="font-main font-normal text-[20px] leading-[20px] xs:pl-4 sm:pl-20  ml-4 sm:ml-0 xs:ml-0 self-center">
             {item.itemName}
           </p>
-        </div>
-      </td>
-      <td className="p-2">
-        <div className="flex">
-          {editable && (
-            <button
-              className="w-[24px] h-[24px] bg-[white] mr-3 flex  items-center justify-center rounded-md self-center"
-              onClick={() => onQtyDec(item.key)}
-            >
-              <span className="font-main font-bold text-[16px] text-[#999999] leading-[12px]">
-                -
-              </span>
-            </button>
-          )}
-
-          <input
-            value={item.quantity}
-            onChange={(e) => onQtyChange(item.key, Number(e.target.value))}
-            className="w-[32px] p-2 h-[32px] rounded-md outline-none font-main font-semibold text-[15px] text-[#999999] leading-[20px] flex text-center"
-          />
-          {editable && (
-            <button
-              className="w-[24px] h-[24px] bg-[white] ml-3 flex justify-center items-center rounded-md self-center"
-              onClick={() => onQtyInc(item.key)}
-            >
-              <span className="font-main font-bold text-[16px] text-[#999999] leading-[12px]">
-                +
-              </span>
-            </button>
-          )}
         </div>
       </td>
       <td className="p-2">
@@ -83,11 +50,9 @@ const ProgramItem = ({
           )}
         </div>
       </td>
-      {editable && (
-        <td className="text-[18px] pl-4">
-          <button onClick={() => onRemove(item.key)}> Remove</button>
-        </td>
-      )}
+      <td className="text-[18px] pl-4">
+        <button onClick={() => onRemove(item.key)}> Remove</button>
+      </td>
     </tr>
   );
 };
