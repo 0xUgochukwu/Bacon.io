@@ -247,8 +247,7 @@ export const AnnualBudgetProvider = ({ children }) => {
         isSetLoading,
         mint,
         balance,
-        contractBalance
-
+        contractBalance,
         getUnLockTime,
         unlockTime
 
