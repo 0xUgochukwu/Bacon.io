@@ -227,6 +227,8 @@ export const AnnualBudgetProvider = ({ children }) => {
       isSetLoading(false)
     } catch (error) {
       throw new Error('insuffient funds')
+    } finally {
+      isSetLoading(false)
     }
   }
 
