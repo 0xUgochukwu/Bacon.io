@@ -17,14 +17,22 @@ const NewPersonalSavings = () => {
   const [dueDate, setDueDate] = useState('')
   const [showForm, setShowForm] = useState(false)
   const navigate = useNavigate()
-  const { createBudget, viewbudget, deposit, removeItem, viewItem, isLoading } =
-    useContext(AnnualBudgetContext)
+  const {
+    createBudget,
+    viewbudget,
+    deposit,
+    removeItem,
+    viewItem,
+    isLoading,
+    isSetLoading,
+  } = useContext(AnnualBudgetContext)
 
-  const handleSavings = () => {
+  const handleSavings = async () => {
     try {
       if (items.length) {
-        createBudget(items).wait()
-        navigate(PERSONAL_SAVINGS_DETAILS_ROUTE)
+        isSetLoading(true)
+        await createBudget(items)
+        isSetLoading(false)
       } else {
         console.log('no item added')
       }
@@ -114,7 +122,11 @@ const NewPersonalSavings = () => {
             <h1 className='font-main font-bold text-[40px] leading-[52px]'>
               Setup New Personal Savings
             </h1>
-            <img src={programTitle} />
+            <img
+              src={programTitle}
+              className='cursor-pointer'
+              onClick={() => navigate(PERSONAL_SAVINGS_DETAILS_ROUTE)}
+            />
           </div>
           <Wallet />
         </div>
@@ -163,7 +175,7 @@ const NewPersonalSavings = () => {
                       <td></td>
                       <td></td>
                       <td className='text-center' colSpan={2}>
-                        <div className='text-center'>
+                        <div className=' text-center flex  '>
                           <Jumbotron message='No Items' />
                         </div>
                       </td>

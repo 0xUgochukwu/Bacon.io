@@ -3,9 +3,9 @@ import { deleteIc } from '../../assets'
 import { AnnualBudgetContext } from '../../context/AnnualBudgetContext'
 import { shortAddress } from '../../utills/shortAddress'
 
-
 const Wallet = () => {
-  const { currentAccount, disconnectWallet } = useContext(AnnualBudgetContext)
+  const { currentAccount, disconnectWallet, contractBalance } =
+    useContext(AnnualBudgetContext)
   return (
     <>
       <div className='px-[1px] py-[5px]  w-fit  h-[123px] rounded-[20px] button flex items-center justify-center text-[25px] leading-[32.55px] font-bold font-main'>
@@ -24,7 +24,7 @@ const Wallet = () => {
             />
           </div>
           <p className='font-main font-medium text-[30px] sm:text-[18px] xs:text-[16px] leading-[39.06px] self-end mt-2 text-white'>
-            420 ETH
+            {contractBalance} MATIC
           </p>
         </div>
       </div>
