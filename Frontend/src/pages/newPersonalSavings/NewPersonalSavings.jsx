@@ -1,236 +1,184 @@
-import React, { useState, useContext } from 'react'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import { plus, programTitle, loading } from '../../assets'
-import {
-  Footer,
-  Jumbotron,
-  ProgramForm,
-  ProgramItem,
-  Wallet,
-} from '../../components'
-import { PERSONAL_SAVINGS_DETAILS_ROUTE } from '../../constants/routes'
+import React, { useState, useContext, useEffect } from 'react'
+import { loading, viewReport } from '../../assets'
+import { Jumbotron, ProgramItem, ProgressBar, Wallet } from '../../components'
 import { AnnualBudgetContext } from '../../context/AnnualBudgetContext'
 
-const NewPersonalSavings = () => {
-  const [items, setItems] = useState([])
-  const [dueDate, setDueDate] = useState('')
-  const [showForm, setShowForm] = useState(false)
-  const navigate = useNavigate()
+const PersonalSavingsDetails = () => {
   const {
-    createBudget,
     viewbudget,
-    deposit,
     removeItem,
-    viewItem,
     isLoading,
-    isSetLoading,
+    getUnLockTime,
+    deposit,
+    withdraw,
   } = useContext(AnnualBudgetContext)
+  const [items, setItems] = useState([])
+  const [unlockTime, setUnlockTime] = useState(0)
+  const [isDeposting, setIsDepositing] = useState(false)
+  const [showForm, setShowForm] = useState(false)
+  const [amount, setAmount] = useState('')
 
-  const handleSavings = () => {
-    try {
-      if (items.length) {
-        isSetLoading(true)
-        createBudget(items)
-      } else {
-        console.log('no item added')
+  useEffect(() => {
+    ;(async () => {
+      const items = await viewbudget()
+      if (items) {
+        const formatedItems = items.map((item) => ({
+          itemName: item.item,
+          cost: item.maticAmount.toString(),
+          key: item.ID,
+        }))
+        setItems(formatedItems)
       }
-        
-    } catch (error) {
-      console.log
-    }
-  }
+    })()
+  }, [])
 
-  const handleAddItem = (item) => {
-    const itemWithKey = getItemWithKey(item, items.length)
-    setItems(items.concat(itemWithKey))
-    toggleForm()
-  }
+  useEffect(() => {
+    ;(async () => {
+      const time = await getUnLockTime()
+      setUnlockTime(time)
+    })()
+  }, [])
 
-  const toggleForm = () => {
-    setShowForm(!showForm)
-  }
+  // console.log(unlockTime, "time");
 
-  const getItemWithKey = (item, length) => {
-    const key = `k-${length}`
-    const itemWithKey = {
-      ...item,
-      key,
-    }
-
-    return itemWithKey
-  }
-
-  const handleQtyInc = (key) => {
-    const updatedItems = items.map((item) =>
-      item.key === key ? { ...item, quantity: Number(item.quantity) + 1 } : item
-    )
+  const removeOneItem = (id) => {
+    const updatedItems = items.filter((item) => item.key != id)
     setItems(updatedItems)
   }
-  const handleQtyDec = (key) => {
-    const updatedItems = items.map((item) =>
-      item.key === key && Number(item.quantity) > 1
-        ? { ...item, quantity: Number(item.quantity) - 1 }
-        : item
-    )
-    setItems(updatedItems)
+  const handleRemove = async (id) => {
+    await removeItem(id)
+    removeOneItem(id)
   }
 
-  const handleCostInc = (key) => {
-    const updatedItems = items.map((item) =>
-      item.key === key ? { ...item, cost: Number(item.cost) + 1 } : item
-    )
-    setItems(updatedItems)
+  const handleDeposit = () => {
+    setIsDepositing(true)
+    setShowForm(true)
   }
 
-  const handleCostDec = (key) => {
-    const updatedItems = items.map((item) =>
-      item.key === key && Number(item.cost) > 0
-        ? { ...item, cost: Number(item.cost) - 1 }
-        : item
-    )
-    setItems(updatedItems)
+  const depositAmount = async(e) => {
+    e.preventDefault()
+    console.log(amount)
+    await deposit(amount)
+    location.reload()
+  }
+  
+  const handleWithdraw = () =>{
+    withdraw()
   }
 
-  const handleQtyChange = (key, value) => {
-    const updatedItems = items.map((item) =>
-      item.key === key ? { ...item, quantity: value } : item
-    )
-    setItems(updatedItems)
-  }
-
-  const handleCostChange = (key, value) => {
-    const updatedItems = items.map((item) =>
-      item.key === key ? { ...item, cost: value } : item
-    )
-    setItems(updatedItems)
-  }
-
-  const handleDateChange = (e) => {
-    setDueDate(e.target.value)
-  }
-
-  const handleRemoveItem = (key) => {
-    const updatedItems = items.filter((item) => item.key !== key)
-    setItems(updatedItems)
-  }
   return (
     <div className='flex flex-col'>
-      <main className='ml-[78px] mr-[66px] pt-16 mb-16'>
+      <main className='ml-[78px] mr-[66px] pt-16 mb-auto mb-16'>
         <div className='flex justify-between flex-wrap'>
-          <div className='mb-8'>
+          <div className='mb-4'>
             <h1 className='font-main font-bold text-[40px] leading-[52px]'>
-              Setup New Personal Savings
+              Savings Program Name
             </h1>
-            <img
-              src={programTitle}
-              className='cursor-pointer'
-              onClick={() => navigate(PERSONAL_SAVINGS_DETAILS_ROUTE)}
-            />
+            <img src={viewReport} />
           </div>
           <Wallet />
         </div>
         <div className='px-[1px] py-[1px]  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16'>
           <div className='bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4'>
             <div className='overflow-auto'>
-              <table className='w-[100%]  m-w-[450px]'>
-                <thead>
-                  <tr>
-                    <th
-                      className='p-4 font-bold text-[20px] leading-6 font-main text-left'
-                      colSpan={2}
-                    >
-                      Items
-                    </th>
-                    <th className='p-4 font-bold text-[20px] leading-6 font-main text-left'>
-                      Quantity
-                    </th>
-                    <th className='p-4 font-bold text-[20px] leading-6 font-main text-left'>
-                      Cost
-                    </th>
-                    <th className='p-4 font-bold text-[20px] leading-6 font-main text-left'>
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.length ? (
-                    <>
-                      {items.map((item) => (
-                        <ProgramItem
-                          key={item.key}
-                          item={item}
-                          onCostDec={handleCostDec}
-                          onCostInc={handleCostInc}
-                          onQtyDec={handleQtyDec}
-                          onQtyInc={handleQtyInc}
-                          onCostChange={handleCostChange}
-                          onQtyChange={handleQtyChange}
-                          onRemove={handleRemoveItem}
-                        />
-                      ))}
-                    </>
-                  ) : (
+              {isLoading ? (
+                <div className='w-[100%] flex justify-center items-center'>
+                  <img src={loading} alt='' />
+                </div>
+              ) : (
+                <table className='w-[100%]  m-w-[450px]'>
+                  <thead>
                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td className='text-center' colSpan={2}>
-                        <div className=' text-center flex  '>
-                          <Jumbotron message='No Items' />
-                        </div>
-                      </td>
+                      <th
+                        className='p-4 font-bold text-[20px] leading-6 font-main text-left'
+                        colSpan={2}
+                      >
+                        Item
+                      </th>
+                      <th className='p-4 font-bold text-[20px] leading-6 font-main text-left'>
+                        Cost
+                      </th>
+                      <th className='p-4 font-bold text-[20px] leading-6 font-main text-left'>
+                        Action
+                      </th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {!items.length ? (
+                      <tr>
+                        <td></td>
+                        <td className='text-center' colSpan={2}>
+                          <div className='text-center'>
+                            <Jumbotron message='No Items' />
+                          </div>
+                        </td>
+                      </tr>
+                    ) : (
+                      <>
+                        {items.map((item) => (
+                          <ProgramItem
+                            key={item.key}
+                            item={item}
+                            editable={false}
+                            onRemove={handleRemove}
+                          />
+                        ))}
+                      </>
+                    )}
+                  </tbody>
+                </table>
+              )}
             </div>
-            {showForm ? (
-              <ProgramForm onSubmit={handleAddItem} />
-            ) : (
-              <button
-                className='button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex'
-                onClick={toggleForm}
-              >
-                <img src={plus} />
-                <span className='ml-3'>Add Item</span>
-              </button>
-            )}
           </div>
         </div>
-        <div className='button h-[120px] mt-20 rounded-[20px] p-[1px]'>
-          <div className=' h-[100%] rounded-[20px] bg-[#08081E] px-[50px] '>
-            <p className='text-[18px] font-bold font-main leading-6 py-3'>
-              {' '}
-              Due Date
-            </p>
+        <div className='mt-[40px]'>
+          <ProgressBar completed={50} bgcolor='red' />
+        </div>
 
-            <div className='button h-[50px] rounded-[20px] p-[1px]'>
-              <input
-                value={dueDate}
-                onChange={handleDateChange}
-                className=' h-[100%] rounded-[20px] bg-[#08081E] w-full outline-none pl-2 '
-                type='date'
-              />
-            </div>
-          </div>
+        <div className='flex mt-2'>
+          <p className='font-normal text-[16px] font-main leading-6'>
+            Savings Goal: 32% (134.4 ETH)
+          </p>{' '}
+          <p className='font-normal text-[16px] font-main leading-6 ml-20'>
+            Time Left: 3 months, 12 Days
+          </p>
         </div>
         <div className='flex justify-center'>
-          {!isLoading ? (
-            <button
+          {isLoading ? loading : 
+          <div className='flex gap-4'>
+            { showForm ? 
+              <form onSubmit={depositAmount}>
+                <div className='flex flex-col mt-1 mb-6'>
+                  <input
+                    className='outline-none text-[13px] rounded-sm p-2 text-[#212121] leading-[12px] w-full'
+                    placeholder='amount'
+                    onChange={(e) => setAmount(e.target.value)}
+                    type='text'
+                    required
+                  />
+                  <button className='button p-[8px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] cursor-pointer'>
+                    deposit
+                  </button>
+                </div>
+              </form>:
+              (
+             <button
+              onClick={handleDeposit}
               className='button p-[8px] rounded-[20px] my-16 items-center font-normal font-main text-[20px]'
-              onClick={handleSavings}
             >
-              Save Program
-            </button>
-          ) : (
-            <button>
-              <img src={loading} alt='Loading' />
-            </button>
-          )}
+              Deposit
+            </button>)}
+            {!isDeposting &&
+              <button onClick={handleWithdraw} className='button p-[8px] rounded-[20px] my-16 items-center font-normal font-main text-[20px]'>
+                Widthraw
+              </button>
+            }
+          </div>
+}
         </div>
       </main>
     </div>
   )
 }
 
-export default NewPersonalSavings
+export default PersonalSavingsDetails
