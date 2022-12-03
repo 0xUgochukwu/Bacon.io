@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react'
+
 import { ethers } from 'ethers'
-import { contractABI, contractAddress } from '../utills/constant'
-import { useDisconnect } from 'wagmi'
+import {
+  contractABI,
+  contractAddress,
+  TokenABI,
+  TokenAddress,
+} from '../utills/constant'
+import detectEthereumProvider from '@metamask/detect-provider'
 
 export const AnnualBudgetContext = React.createContext()
 
@@ -18,11 +24,49 @@ const getEthereumContract = () => {
   return annualBudgetContract
 }
 
+const getTokenContract = () => {
+  const provider = new ethers.providers.Web3Provider(ethereum)
+  const signer = provider.getSigner()
+  const matic = new ethers.Contract(TokenAddress, TokenABI, signer)
+  return matic
+}
+
 export const AnnualBudgetProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLoading, isSetLoading] = useState(false)
-  const [budgetId, setBudgetId] = useState(localStorage.getItem('budgetId'))
+  const [contractBalance, setContractBalance] = useState(0)
   const [unlockTime, setUnclockTime] = useState('')
+
+  const matic = getTokenContract()
+
+  function h2d(s) {
+    function add(x, y) {
+      var c = 0,
+        r = []
+      var x = x.split('').map(Number)
+      var y = y.split('').map(Number)
+      while (x.length || y.length) {
+        var s = (x.pop() || 0) + (y.pop() || 0) + c
+        r.unshift(s < 10 ? s : s - 10)
+        c = s < 10 ? 0 : 1
+      }
+      if (c) r.unshift(c)
+      return r.join('')
+    }
+
+    var dec = '0'
+    s.split('').forEach(function (chr) {
+      var n = parseInt(chr, 16)
+      for (var t = 8; t; t >>= 1) {
+        dec = add(dec, dec)
+        if (n & t) dec = add(dec, '1')
+      }
+    })
+    return dec
+  }
+
+  
+
 
   const connectWallet = async () => {
     try {
@@ -38,11 +82,8 @@ export const AnnualBudgetProvider = ({ children }) => {
 
   const disconnectWallet = async () => {
     try {
-      const disconnect = useDisconnect({
-        onError(error) {
-          console.log('Error', error)
-        },
-      })
+      console.log('hi')
+      // ethereum.on('disconnect', handler: (error: ProviderRpcError) => void)
     } catch (error) {}
   }
 
@@ -67,6 +108,7 @@ export const AnnualBudgetProvider = ({ children }) => {
 
   useEffect(() => {
     checkIfWalletIsConnected()
+    balance()
   }, [])
 
   // add items to the budget list
@@ -82,14 +124,14 @@ export const AnnualBudgetProvider = ({ children }) => {
         )
         isSetLoading(true)
         console.log(`hash is - ${budgetItem.hash}`)
-        await budgetItem.wait()
-        isSetLoading(false)
+        budgetItem.wait()
+        
         console.log(`hash is - ${budgetItem.hash}`)
-
-        // const budgetId = await annualBudgetContract.budgetCount()
-        // console.log(budgetId)
-        // setBudgetId(budgetId.toNumber())
+        budgetItem.wait()
       })
+      isSetLoading(false)
+      
+     
     } catch (error) {
       console.log(error)
     }
@@ -107,33 +149,42 @@ export const AnnualBudgetProvider = ({ children }) => {
     }
   }
 
-  const viewItem = async (id) =>{
+  const viewItem = async (id) => {
     try {
-      isSetLoading(true)
-         if (!ethereum) return alert('Please Install metamask')
-         const annualBudgetContract = getEthereumContract()
-         const listIterm = await annualBudgetContract.listItem(id)
-        console.log(listIterm)
+
+      if (!ethereum) return alert('Please Install metamask')
+      const annualBudgetContract = getEthereumContract()
+      const listIterm = await annualBudgetContract.listItem(id)
+      console.log(listIterm)
     } catch (error) {
-        
-    }finally{
-      isSetLoading(false)
+      console.log(error)
     }
   }
-  const removeItem = async() =>{
+  const removeItem = async (id) => {
     try {
-      isSetLoading(true)
-         if (!ethereum) return alert('Please Install metamask')
-         const annualBudgetContract = getEthereumContract()
-         const txnhash = await annualBudgetContract.removeItems(id)
-         txnhash.wait()
-         console.log(txnhash)
+      if (!ethereum) return alert('Please Install metamask')
+      const annualBudgetContract = getEthereumContract()
+      const txnhash = await annualBudgetContract.removeItems(id)
+      txnhash.wait()
+      console.log(txnhash)
     } catch (error) {
-        
-    } finally{
-      isSetLoading(false)
+      console.log(error)
     }
   }
+  const mint = async (value) => {
+    try {
+      if (!ethereum) return alert('Please Install metamask')
+      const annualBudgetContract = getEthereumContract()
+      const matic = getTokenContract()
+      const mint = await matic.mint(currentAccount, value)
+      isSetLoading(true)
+      mint.wait()
+      console.log(mint.hash)
+      isLoading(false)
+    } catch (error) {}
+  }
+
+ 
   const getUnLockTime = async() =>{
     try {
          if (!ethereum) return 
@@ -144,38 +195,41 @@ export const AnnualBudgetProvider = ({ children }) => {
         
     } 
   }
+
+
+  const balance = async () => {
+    const bal = await matic.balanceOf(contractAddress)
+    isSetLoading(true)
+    let dbalance = h2d(bal._hex)
+    let value = dbalance.slice(dbalance.length - 1)
+    console.log(value)
+    setContractBalance(value)
+    isSetLoading(false)
+    console.log(contractBalance)
+  }
+
   const deposit = async (cost) => {
     try {
       if (!ethereum) return alert('Please Install metamask')
-      const annualBudgetContract = getEthereumContract();
-      console.log(cost)
-      const mint = await annualBudgetContract
-    //   ._mint(
-    //     contractAddress,
-    //     ethers.utils.parseEther('1')
-    //   )
-    //    const bal = await matic.balanceOf(otherAccount.address)
-      console.log(mint)
+      const annualBudgetContract = getEthereumContract()
+      const matic = getTokenContract()
 
-
-
-
-    //   const parseCost = ethers.utils.parseEther(cost)
-    //   console.log(cost)
-    //   const depositBudgetxn = await annualBudgetContract
-    //     .depositBudgetFund(parseCost)
-    //     .send({
-    //       from: currentAccount,
-    //       value: parseCost._hex,
-    //       gas: '2100000',
-    //       gasPrice: '8000000000',
-    //     })
-    //   console.log(cost)
-    //   await depositBudgetxn.wait()
-
-      // console.log(depositBudgetxn)
-    } catch (error) {}
+      const approval = await matic.approve(contractAddress, cost)
+      isSetLoading(true)
+      approval.wait()
+      console.log(approval.hash)
+      const depositFund = await annualBudgetContract.depositBudgetFund(1, {
+        value: ethers.utils.parseUnits(cost, 'ether'),
+      })
+      depositFund.wait()
+      console.log(depositFund.hash)
+      balance()
+      isSetLoading(false)
+    } catch (error) {
+      throw new Error('insuffient funds')
+    }
   }
+
 
   return (
     <AnnualBudgetContext.Provider
@@ -191,8 +245,13 @@ export const AnnualBudgetProvider = ({ children }) => {
         viewItem,
         isLoading,
         isSetLoading,
+        mint,
+        balance,
+        contractBalance
+
         getUnLockTime,
         unlockTime
+
       }}
     >
       {children}

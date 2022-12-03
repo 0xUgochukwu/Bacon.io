@@ -12,7 +12,6 @@
     "type": "constructor"
   },
   { "inputs": [], "name": "amountEqualZero", "type": "error" },
-  { "inputs": [], "name": "doesNotExist", "type": "error" },
   { "inputs": [], "name": "notOwner", "type": "error" },
   { "inputs": [], "name": "notYetTime", "type": "error" },
   { "inputs": [], "name": "transferFailed", "type": "error" },
@@ -152,8 +151,8 @@
           { "internalType": "string", "name": "item", "type": "string" },
           { "internalType": "bool", "name": "created", "type": "bool" }
         ],
-        "internalType": "struct AnnualBudget.budgetItems",
-        "name": "",
+        "internalType": "struct BudgetDapp.budgetItems",
+        "name": "value",
         "type": "tuple"
       }
     ],
@@ -184,7 +183,7 @@
           { "internalType": "string", "name": "item", "type": "string" },
           { "internalType": "bool", "name": "created", "type": "bool" }
         ],
-        "internalType": "struct AnnualBudget.budgetItems[]",
+        "internalType": "struct BudgetDapp.budgetItems[]",
         "name": "",
         "type": "tuple[]"
       }
@@ -198,13 +197,6 @@
     "outputs": [
       { "internalType": "address payable", "name": "", "type": "address" }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "removeItem",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
