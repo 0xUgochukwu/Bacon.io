@@ -2,14 +2,14 @@ import { ethers } from "hardhat";
 
 async function main() {
   const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
+  const ONE_YEAR_IN_SECS = 2 * 24 * 60 * 60;
   const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
 
 
   const MaticToken = await ethers.getContractFactory("MaticToken");
   const matic = await MaticToken.deploy("Matic","MT");
 
-  const AnnualBudget = await ethers.getContractFactory("AnnualBudget");
+  const AnnualBudget = await ethers.getContractFactory("BudgetDapp");
   const annualbudget = await AnnualBudget.deploy(matic.address, unlockTime );
 
   await annualbudget.deployed();

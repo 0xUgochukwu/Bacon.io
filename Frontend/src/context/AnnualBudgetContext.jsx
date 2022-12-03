@@ -35,6 +35,7 @@ export const AnnualBudgetProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLoading, isSetLoading] = useState(false)
   const [contractBalance, setContractBalance] = useState(0)
+  const [unlockTime, setUnclockTime] = useState('')
 
   const matic = getTokenContract()
 
@@ -63,6 +64,9 @@ export const AnnualBudgetProvider = ({ children }) => {
     })
     return dec
   }
+
+  
+
 
   const connectWallet = async () => {
     try {
@@ -124,8 +128,6 @@ export const AnnualBudgetProvider = ({ children }) => {
         
         console.log(`hash is - ${budgetItem.hash}`)
         budgetItem.wait()
-        
-
       })
       isSetLoading(false)
       
@@ -141,6 +143,7 @@ export const AnnualBudgetProvider = ({ children }) => {
       const annualBudgetContract = getEthereumContract()
       const budgetList = await annualBudgetContract.myList()
       console.log(budgetList)
+      return budgetList
     } catch (error) {
       console.log(error)
     }
@@ -148,6 +151,7 @@ export const AnnualBudgetProvider = ({ children }) => {
 
   const viewItem = async (id) => {
     try {
+
       if (!ethereum) return alert('Please Install metamask')
       const annualBudgetContract = getEthereumContract()
       const listIterm = await annualBudgetContract.listItem(id)
@@ -167,7 +171,6 @@ export const AnnualBudgetProvider = ({ children }) => {
       console.log(error)
     }
   }
-
   const mint = async (value) => {
     try {
       if (!ethereum) return alert('Please Install metamask')
@@ -180,6 +183,19 @@ export const AnnualBudgetProvider = ({ children }) => {
       isLoading(false)
     } catch (error) {}
   }
+
+ 
+  const getUnLockTime = async() =>{
+    try {
+         if (!ethereum) return 
+         const annualBudgetContract = getEthereumContract()
+         const res = await annualBudgetContract.unlockTime()
+         return res.toString()
+    } catch (error) {
+        
+    } 
+  }
+
 
   const balance = async () => {
     const bal = await matic.balanceOf(contractAddress)
@@ -232,6 +248,10 @@ export const AnnualBudgetProvider = ({ children }) => {
         mint,
         balance,
         contractBalance
+
+        getUnLockTime,
+        unlockTime
+
       }}
     >
       {children}
