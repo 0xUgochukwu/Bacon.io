@@ -16,6 +16,13 @@ import cart from "./cart.svg";
 import programTitle from "./programTitle.svg";
 import viewReport from "./viewReport.svg";
 import loading from './loading.svg'
+import person from './person.svg'
+import chevronLeft from './chevronLeft.svg'
+import chevronRight from './chevronRight.svg'
+import remove from './remove.svg'
+import save from './save.svg'
+import edit from './edit.svg'
+import download from './download.svg'
 
 export {
   viewReport,
@@ -35,5 +42,12 @@ export {
   circle,
   popular,
   backtoTop,
-  loading
+  loading,
+  person,
+  save,
+  chevronLeft,
+  chevronRight,
+  remove,
+  edit,
+  download
 }

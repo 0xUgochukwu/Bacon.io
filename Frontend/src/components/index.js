@@ -8,6 +8,12 @@ import ProgramItem from "./programItem/ProgramItem";
 import ProgressBar from "./progressBar/ProgressBar";
 import ProgramForm from "./programForm/ProgramForm";
 import Jumbotron from "./jumbotron/Jumbotron";
+import OVerlay from "./overlay/Overlay";
+import DepositForm from "./depositForm/DepositForm";
+import Modal from "./modal/Modal";
+import PayrollItem from "./payrollItem/PayrollItem";
+import SelectField from "./selectField/SelectField";
+import PayrollWallet from "./payrollWallet/PayrollWallet";
 
 export {
   Team,
@@ -19,5 +25,11 @@ export {
   ProgramItem,
   ProgressBar,
   ProgramForm,
-  Jumbotron
+  Jumbotron,
+  OVerlay,
+  DepositForm,
+  Modal,
+  PayrollItem,
+  SelectField,
+  PayrollWallet,
 };
