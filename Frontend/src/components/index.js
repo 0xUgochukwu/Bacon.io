@@ -11,7 +11,9 @@ import Jumbotron from "./jumbotron/Jumbotron";
 import OVerlay from "./overlay/Overlay";
 import DepositForm from "./depositForm/DepositForm";
 import Modal from "./modal/Modal";
-
+import PayrollItem from "./payrollItem/PayrollItem";
+import SelectField from "./selectField/SelectField";
+import PayrollWallet from "./payrollWallet/PayrollWallet";
 
 export {
   Team,
@@ -26,5 +28,8 @@ export {
   Jumbotron,
   OVerlay,
   DepositForm,
-  Modal
+  Modal,
+  PayrollItem,
+  SelectField,
+  PayrollWallet,
 };

@@ -10,7 +10,7 @@ import {
   popular,
 } from "../assets/index";
 import { Link } from "react-router-dom";
-import { PROGRAMS_ROUTE } from "../constants/routes";
+import { CLAIM_PAYMENT_ROUTE, PROGRAMS_ROUTE } from "../constants/routes";
 
 const Hero = () => {
   return (
@@ -31,12 +31,13 @@ const Hero = () => {
                 Programs
               </button>
             </Link>
-
+            <Link to={CLAIM_PAYMENT_ROUTE}>
             <button className='font-main  rounded-[20px] w-[196px] h-[53px] ml-[25px] text-[20px] leading-[26px] font-semibold button flex justify-center items-center'>
               <p className='bg-primary w-[194px] h-[51px] rounded-[20px] flex justify-center items-center '>
-                Learn More
+                Claim Payment
               </p>
             </button>
+            </Link>
           </div>
         </div>
         <div className="w-[450px] h-[342px] mt-[101px]  ">
