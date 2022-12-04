@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { Footer, Wallet } from '../../components'
 import { New_PERSONAL_SAVINGS_ROUTE } from '../../constants/routes'
 import { AnnualBudgetContext } from '../../context/AnnualBudgetContext'
+import { Link } from 'react-router-dom'
+import { New_PAYROLL_ROUTE } from '../../constants/routes'
+import {PayrollWallet} from '../../components'
 
 const Programs = () => {
   const { connectWallet, currentAccount, checkIfWalletIsConnected } =
@@ -12,6 +15,9 @@ const Programs = () => {
 
   const handlePersonalSavings = () => {
     navigate(New_PERSONAL_SAVINGS_ROUTE)
+  }
+  const handleCustomProgram = () =>{
+    navigate(New_PAYROLL_ROUTE)
   }
   return (
     <div className='flex flex-col'>
@@ -22,7 +28,7 @@ const Programs = () => {
           </h1>
           {currentAccount && (
             <div className='flex flex-row justify-end'>
-              <Wallet />
+              <PayrollWallet />
             </div>
           )}
         </div>
@@ -36,7 +42,10 @@ const Programs = () => {
               Personal Savings
             </button>
 
-            <button className='font-main py-[35.5px] w-[49%] justify-center rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] '>
+            <button
+              onClick={handleCustomProgram}
+              className='font-main py-[35.5px] w-[49%] justify-center rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] '
+            >
               Custom Program
             </button>
           </div>
