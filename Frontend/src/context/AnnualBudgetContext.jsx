@@ -7,6 +7,8 @@ import {
   TokenABI,
   TokenAddress,
   PayrollABI,
+  payrollTokenABI,
+  payrollTokenAdress,
 } from '../utills/constant'
 import { useDisconnect } from 'wagmi'
 import { keccak256 } from 'ethers/lib/utils.js'
@@ -42,6 +44,17 @@ const getPayrollContract = () => {
   const payroll = new ethers.Contract(payrollAddress, PayrollABI, signer)
   console.log(payroll)
 
+}
+
+const getPayrollTokenContract = () => {
+  const provider = new ethers.providers.Web3Provider(ethereum)
+  const signer = provider.getSigner()
+  const payrollToken = new ethers.Contract(
+    payrollTokenAdress,
+    payrollTokenABI,
+    signer
+  )
+  return payrollToken
 }
 
 export const AnnualBudgetProvider = ({ children }) => {
@@ -96,7 +109,6 @@ export const AnnualBudgetProvider = ({ children }) => {
   useEffect(() => {
     checkIfWalletIsConnected()
     balance()
-    console.log('hi')
     getPayrollContract()
   }, [])
 
@@ -236,35 +248,63 @@ export const AnnualBudgetProvider = ({ children }) => {
     }
   }
 
-  const setPaymentDetails = async (items, amount, time) => {
-    try {
-      const payroll = getPayrollContract()
-
-      const encodeLeaf = items.map((addr) => keccak256(addr))
-      const merkleTree = new MerkleTree(encodeLeaf, keccak256, {
-        sortPairs: true,
-      })
-      const rootHash = merkleTree.getHexRoot()
-      setRoot[rootHash]
-      const details = await payroll.setPaymentDeatils(rootHash, amount, time);
-      details.wait()
-      console.log(details.hash)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+ const setPaymentDetails = async (addrList, salary, time) => {
+   // time in string format
+   try {
+     const payroll = getPayrollContract()
+     console.log(addrList, salary, time)
+     const encodeLeaf = addrList.map((addr) => keccak256(addr))
+     const merkleTree = new MerkleTree(encodeLeaf, keccak256, {
+       sortPairs: true,
+     })
+     const rootHash = merkleTree.getHexRoot()
+     console.log(rootHash)
+     setRoot[rootHash]
+     const details = await payroll.setPaymentDeatils(
+       rootHash,
+       ethers.utils.parseUnits(salary, 'ether'),
+       time
+     )
+     details.wait()
+     console.log(details.hash)
+   } catch (error) {
+     console.log(error)
+     throw new Error('No allowed to call this. Admin only')
+   }
+ }
 
   const payrollDeposit = async (amount) => {
     try {
       const payroll = getPayrollContract()
-      const deposit =await payroll.depositSalaryFunds(1, {
+      const payrollToken = getPayrollTokenContract()
+      console.log(payrollToken)
+      console.log(payroll)
+      //minting payroll token for deposit
+      const mint = await payrollToken.mint(
+        currentAccount,
+        ethers.utils.parseUnits(amount, 'ether')
+      )
+      isSetLoading(true)
+      mint.wait()
+      console.log(mint.hash)
+
+      //approving
+      const approval = await payrollToken.approve(
+        payrollAddress,
+        ethers.utils.parseUnits(amount, 'ether')
+      )
+      approval.wait()
+      console.log(approval.hash)
+
+      // depositing to the contract
+      const deposit = await payroll.depositSalaryFunds(1, {
         value: ethers.utils.parseUnits(amount, 'ether'),
       })
       deposit.wait()
       console.log(deposit.hash)
+      isSetLoading(false)
     } catch (error) {
       console.log(error)
-      
     }
   }
 
