@@ -39,6 +39,7 @@ const ProgramItem = ({
               <button
                 className="w-[24px] h-[24px] bg-[white] flex justify-center items-center rounded-lg self-center"
                 onClick={() => onCostDec(item.key)}
+                type="button"
               >
                 <span className="font-main font-bold text-[16px] text-[#999999] leading-[12px]">
                   -
@@ -47,6 +48,7 @@ const ProgramItem = ({
               <button
                 className="w-[24px] h-[24px] bg-[white] flex justify-center items-center rounded-lg self-center"
                 onClick={() => onCostInc(item.key)}
+                type="button"
               >
                 <span className="font-main font-bold text-[16px] text-[#999999] leading-[12px]">
                   +
@@ -60,6 +62,7 @@ const ProgramItem = ({
         <button
           className="button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex"
           onClick={() => onRemove(item.key)}
+          type="button"
         >
           <img src={remove} />
           <span className="ml-3">Remove</span>

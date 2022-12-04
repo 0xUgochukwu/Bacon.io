@@ -22,13 +22,11 @@ const NewPersonalSavings = () => {
   const [isEditProgramName, setIsEditProgramName] = useState(false);
   const [errorMessage, setErrorMessage]= useState("")
   const {
-    createBudget,
     viewbudget,
-    deposit,
     removeItem,
-    viewItem,
     isLoading,
     isSetLoading,
+    createBudget
   } = useContext(AnnualBudgetContext);
 
   const handleSavings = (e) => {
@@ -193,8 +191,9 @@ const NewPersonalSavings = () => {
                       </td>
                     </tr>
                   )}
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+            
             </div>
 
             <button
