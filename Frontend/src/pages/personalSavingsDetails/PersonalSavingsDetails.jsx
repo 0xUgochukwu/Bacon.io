@@ -20,12 +20,14 @@ const PersonalSavingsDetails = () => {
     getUnLockTime,
     deposit,
     contractBalance,
+    withdraw
   } = useContext(AnnualBudgetContext);
   const [items, setItems] = useState([]);
   const [unlockTime, setUnlockTime] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [showDepositForm, setShowDepositForm] = useState(false);
   const savingsName = getSavingsName();
+  const [isDeposting, setIsDepositing] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -72,24 +74,34 @@ const PersonalSavingsDetails = () => {
     try {
       await deposit(amount);
       toggleDeposit();
+      location.reload()
     } catch (error) {
       setErrorMessage(error.message);
+    }finally {
+      setIsDepositing(false)
     }
   };
+  const initiateDeposit = () => {
+    setIsDepositing(true)
+    toggleDeposit()
+  }
 
   const toggleDeposit = () => {
     setShowDepositForm(!showDepositForm);
   };
+  const handleWithdraw = () =>{
+    withdraw()
+  }
   return (
     <div className="flex flex-col">
       <main className="ml-[78px] mr-[66px] pt-16 mb-auto mb-16">
         <div className="flex justify-between flex-wrap">
           <div className="mb-4">
             <h1 className="font-main font-bold text-[40px] leading-[52px]">
-              Savings Program Name
+              {savingsName}
             </h1>
             <h3 className="font-main font-medium text-[30px] text-[#3940DE] leading-[39.06px]">
-              {savingsName}
+             View Report
             </h3>
           </div>
           <Wallet />
@@ -175,14 +187,16 @@ const PersonalSavingsDetails = () => {
           <div className="flex gap-4">
             <button
               className="button p-[8px] rounded-[20px] my-16 items-center font-normal font-main text-[20px]"
-              onClick={toggleDeposit}
+              onClick={initiateDeposit}
               disabled={isLoading}
             >
               Deposit
             </button>
-            <button className="button p-[8px] rounded-[20px] my-16 items-center font-normal font-main text-[20px]">
+            {!isDeposting &&
+            <button className="button p-[8px] rounded-[20px] my-16 items-center font-normal font-main text-[20px]" onClick={handleWithdraw}>
               Widthraw
             </button>
+            }
           </div>
         </div>
         {showDepositForm && (

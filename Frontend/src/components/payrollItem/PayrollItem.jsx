@@ -23,10 +23,12 @@ const PayrollItem = ({
         </div>
       </td>
 
+
       <td className="text-[18px] pl-4">
         <button
           className="button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex"
           onClick={() => onRemove(payroll.id)}
+          type="button"
         >
           <img src={remove} />
           <span className="ml-3">Remove</span>
