@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { edit, loading, plus, save, viewReport } from "../../assets";
 import {
   Jumbotron,
@@ -8,6 +9,7 @@ import {
   Wallet,
 } from "../../components";
 import { savePayrollName } from "../../utills/localStorage";
+import { DEPOSIT_PAYROLL_ROUTE } from "../../constants/routes"; 
 
 const NewPayroll = () => {
   const [payrolls, setPayrolls] = useState([
@@ -62,6 +64,7 @@ const NewPayroll = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
+    Navigate(DEPOSIT_PAYROLL_ROUTE )
   };
 
   const toggleEditProgramName = () => {
