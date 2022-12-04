@@ -18,7 +18,7 @@ Bacon.io provides users with the ability to save and budget their money on the b
 
 #### More Possible Use Cases
 
-- A Decentralized Escrow Service for users who don't trust each other to place bets securely without a third party
+- A Decentralized Escrow Service for users who don't trust each other to place bets securely without a third party for wagers like bets, stakes etc.
 - An investment platform that allows users to invest their money in digital assets such as cryptocurrencies.
 - A payment gateway to make payments with digital currencies.
 
