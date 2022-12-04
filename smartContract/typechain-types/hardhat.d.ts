@@ -25,13 +25,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
-      name: "AnnualBudget",
+      name: "BudgetDapp",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AnnualBudget__factory>;
+    ): Promise<Contracts.BudgetDapp__factory>;
     getContractFactory(
       name: "BudgetDapp",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BudgetDapp__factory>;
+    getContractFactory(
+      name: "BaconToken",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BaconToken__factory>;
     getContractFactory(
       name: "MaticToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -53,15 +57,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
-      name: "AnnualBudget",
+      name: "BudgetDapp",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.AnnualBudget>;
+    ): Promise<Contracts.BudgetDapp>;
     getContractAt(
       name: "BudgetDapp",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.BudgetDapp>;
+    getContractAt(
+      name: "BaconToken",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BaconToken>;
     getContractAt(
       name: "MaticToken",
       address: string,

@@ -18,8 +18,8 @@ describe("BudgetDapp", function () {
     // Contracts are deployed using the first signer/account by default
     const [owner, otherAccount] = await ethers.getSigners();
 
-    const MaticToken = await ethers.getContractFactory("MaticToken");
-    const matic = await MaticToken.deploy("Matic","MT");
+    const MaticToken = await ethers.getContractFactory("BaconToken");
+    const matic = await MaticToken.deploy("Bacon","BT");
 
     const AnnualBudget = await ethers.getContractFactory("BudgetDapp");
     const annualbudget = await AnnualBudget.deploy(matic.address, lockTime );
@@ -66,8 +66,8 @@ describe("BudgetDapp", function () {
 
     it("Should fail if the unlockTime is not in the future", async function () {
       // We don't use the fixture here because we want a different deployment
-        const MaticToken = await ethers.getContractFactory("MaticToken");
-        const matic = await MaticToken.deploy("Matic","MT");
+        const MaticToken = await ethers.getContractFactory("BaconToken");
+        const matic = await MaticToken.deploy("Bacon","BT");
 
       const latestTime = await time.latest();
       const AnnualBudget = await ethers.getContractFactory("BudgetDapp");

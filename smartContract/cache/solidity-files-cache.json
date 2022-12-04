@@ -1,43 +1,6 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/felix/Bacon.io/smartContract/contracts/AnnualBudget.sol": {
-      "lastModificationDate": 1669931102337,
-      "contentHash": "826bc3466fafb582e7e597798e1f0cb8",
-      "sourceName": "contracts/AnnualBudget.sol",
-      "solcConfig": {
-        "version": "0.8.17",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.9"
-      ],
-      "artifacts": [
-        "BudgetDapp"
-      ]
-    },
     "/home/felix/Bacon.io/smartContract/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
       "lastModificationDate": 1669802644188,
       "contentHash": "834a0dde221759af42b030253315b086",
@@ -184,10 +147,47 @@
         "IERC20Metadata"
       ]
     },
-    "/home/felix/Bacon.io/smartContract/contracts/ERC20Matic.sol": {
-      "lastModificationDate": 1669800303768,
-      "contentHash": "d955e5dccf547dcf849bb9411ff54646",
-      "sourceName": "contracts/ERC20Matic.sol",
+    "/home/felix/Bacon.io/smartContract/contracts/BudgetDapp.sol": {
+      "lastModificationDate": 1670146440215,
+      "contentHash": "ca389a7c89ac994e65d587f1ac683585",
+      "sourceName": "contracts/BudgetDapp.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "BudgetDapp"
+      ]
+    },
+    "/home/felix/Bacon.io/smartContract/contracts/ERC20Bacon.sol": {
+      "lastModificationDate": 1670145589022,
+      "contentHash": "485aa5a72f28b730c06ebe069d1aebb6",
+      "sourceName": "contracts/ERC20Bacon.sol",
       "solcConfig": {
         "version": "0.8.17",
         "settings": {
@@ -216,7 +216,7 @@
         "^0.8.9"
       ],
       "artifacts": [
-        "MaticToken"
+        "BaconToken"
       ]
     }
   }

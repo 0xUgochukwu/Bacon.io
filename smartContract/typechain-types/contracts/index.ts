@@ -3,5 +3,8 @@
 /* eslint-disable */
 import type * as annualBudgetSol from "./AnnualBudget.sol";
 export type { annualBudgetSol };
+import type * as erc20BaconSol from "./ERC20Bacon.sol";
+export type { erc20BaconSol };
 import type * as erc20MaticSol from "./ERC20Matic.sol";
 export type { erc20MaticSol };
+export type { BudgetDapp } from "./BudgetDapp";

@@ -27,6 +27,7 @@ contract BudgetDapp {
     error amountEqualZero();
     error notOwner();
     error notYetTime();
+    error invalidAddress();
 
     // ===========================
     // STATE VARIABLE
@@ -97,8 +98,8 @@ contract BudgetDapp {
 
     // @notice this function is used to remove item from the list of budgets
     function removeItems(uint256 _ID) public {
-     if (msg.sender != owner) {
-            revert notOwner();
+     if (msg.sender == address(0x0)) {
+            revert invalidAddress();
         }
         uint256 length = myBudgetList.length;
 
@@ -151,4 +152,5 @@ contract BudgetDapp {
 
         initialBudgetFunds += amount;
     }
+
 }

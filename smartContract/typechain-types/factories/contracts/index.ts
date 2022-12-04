@@ -2,4 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as annualBudgetSol from "./AnnualBudget.sol";
+export * as erc20BaconSol from "./ERC20Bacon.sol";
 export * as erc20MaticSol from "./ERC20Matic.sol";
+export { BudgetDapp__factory } from "./BudgetDapp__factory";

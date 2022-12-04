@@ -12,9 +12,9 @@ export type { IERC20Metadata } from "./@openzeppelin/contracts/token/ERC20/exten
 export { IERC20Metadata__factory } from "./factories/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata__factory";
 export type { IERC20 } from "./@openzeppelin/contracts/token/ERC20/IERC20";
 export { IERC20__factory } from "./factories/@openzeppelin/contracts/token/ERC20/IERC20__factory";
-export type { AnnualBudget } from "./contracts/AnnualBudget.sol/AnnualBudget";
-export { AnnualBudget__factory } from "./factories/contracts/AnnualBudget.sol/AnnualBudget__factory";
 export type { BudgetDapp } from "./contracts/AnnualBudget.sol/BudgetDapp";
 export { BudgetDapp__factory } from "./factories/contracts/AnnualBudget.sol/BudgetDapp__factory";
+export type { BaconToken } from "./contracts/ERC20Bacon.sol/BaconToken";
+export { BaconToken__factory } from "./factories/contracts/ERC20Bacon.sol/BaconToken__factory";
 export type { MaticToken } from "./contracts/ERC20Matic.sol/MaticToken";
 export { MaticToken__factory } from "./factories/contracts/ERC20Matic.sol/MaticToken__factory";

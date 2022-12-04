@@ -6,8 +6,8 @@ async function main() {
   const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
 
 
-  const MaticToken = await ethers.getContractFactory("MaticToken");
-  const matic = await MaticToken.deploy("Matic","MT");
+  const MaticToken = await ethers.getContractFactory("BaconToken");
+  const matic = await MaticToken.deploy("Bacon","BT");
 
   const AnnualBudget = await ethers.getContractFactory("BudgetDapp");
   const annualbudget = await AnnualBudget.deploy(matic.address, unlockTime );
