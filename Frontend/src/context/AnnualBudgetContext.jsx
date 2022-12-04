@@ -61,9 +61,8 @@ export const AnnualBudgetProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState('')
   const [isLoading, isSetLoading] = useState(false)
   const [contractBalance, setContractBalance] = useState(0)
-  const [budgetId, setBudgetId] = useState(localStorage.getItem('budgetId'))
-  const [unlockTime, setUnclockTime] = useState('')
-  const [root, setRoot] = useState([])
+const [unlockTime, setUnclockTime] = useState('')
+const [encodeLeaf, setEncodeLeaf] = useState(localStorage.getItem('encodeLeaf'))
 
   const connectWallet = async () => {
     try {
@@ -172,7 +171,7 @@ export const AnnualBudgetProvider = ({ children }) => {
       isSetLoading(false)
     }
   }
-  const removeItem = async () => {
+  const removeItem = async (id) => {
     try {
       isSetLoading(true)
       if (!ethereum) return alert('Please Install metamask')
@@ -193,13 +192,7 @@ export const AnnualBudgetProvider = ({ children }) => {
       return res.toString()
     } catch (error) {}
   }
-  const mint = async (value) => {
-    try {
-      isLoading(false)
-    } catch (error) {}
-  }
   const deposit = async (cost) => {
-    console.log('hi')
     try {
       if (!ethereum) return alert('Please Install metamask')
       const annualBudgetContract = getEthereumContract()
@@ -250,83 +243,90 @@ export const AnnualBudgetProvider = ({ children }) => {
     }
   }
 
- const setPaymentDetails = async (addrList, salary, time) => {
-   // time in string format
-   try {
-     const payroll = getPayrollContract()
-     console.log(addrList, salary, time)
-     const encodeLeaf = addrList.map((addr) => keccak256(addr))
-     const merkleTree = new MerkleTree(encodeLeaf, keccak256, {
-       sortPairs: true,
-     })
-     const rootHash = merkleTree.getHexRoot()
-     console.log(rootHash)
-     setRoot[rootHash]
-     const details = await payroll.setPaymentDeatils(
-       rootHash,
-       ethers.utils.parseUnits(salary, 'ether'),
-       time
-     )
-     details.wait()
-     console.log(details.hash)
-   } catch (error) {
-     console.log(error)
-     throw new Error('No allowed to call this. Admin only')
-   }
- }
-
-  const payrollDeposit = async (amount) => {
+  const setPaymentDetails = async (addrList, salary, time) => {
+    // time in string format
     try {
       const payroll = getPayrollContract()
-      const payrollToken = getPayrollTokenContract()
-      console.log(payrollToken)
-      console.log(payroll)
-      //minting payroll token for deposit
-      const mint = await payrollToken.mint(
-        currentAccount,
-        ethers.utils.parseUnits(amount, 'ether')
-      )
-      isSetLoading(true)
-      mint.wait()
-      console.log(mint.hash)
-
-      //approving
-      const approval = await payrollToken.approve(
-        payrollAddress,
-        ethers.utils.parseUnits(amount, 'ether')
-      )
-      approval.wait()
-      console.log(approval.hash)
-
-      // depositing to the contract
-      const deposit = await payroll.depositSalaryFunds(1, {
-        value: ethers.utils.parseUnits(amount, 'ether'),
+      console.log(addrList, salary, time)
+      const encode = addrList.map((addr) => keccak256(addr))
+      setEncodeLeaf(encode)
+      const merkleTree = new MerkleTree(encodeLeaf, keccak256, {
+        sortPairs: true,
       })
-      deposit.wait()
-      console.log(deposit.hash)
-      isSetLoading(false)
+
+      const rootHash = merkleTree.getHexRoot()
+      console.log(rootHash)
+      setRoot[rootHash]
+      const details = await payroll.setPaymentDeatils(
+        rootHash,
+        ethers.utils.parseUnits(salary, 'ether'),
+        time
+      )
+      details.wait()
+      console.log(details.hash)
     } catch (error) {
       console.log(error)
+      throw new Error('No allowed to call this. Admin only')
     }
   }
+
+ const payrollDeposit = async (amount) => {
+   try {
+     const payroll = getPayrollContract()
+     const payrollToken = getPayrollTokenContract()
+     console.log(payrollToken)
+     console.log(payroll)
+     //minting payroll token for deposit
+     const mint = await payrollToken.mint(
+       currentAccount,
+       ethers.utils.parseUnits(amount, 'ether')
+     )
+     isSetLoading(true)
+     mint.wait()
+     console.log(mint.hash)
+
+     //approving
+     const approval = await payrollToken.approve(
+       payrollAddress,
+       ethers.utils.parseUnits(amount, 'ether')
+     )
+     approval.wait()
+     console.log(approval.hash)
+
+     // depositing to the contract
+     const deposit = await payroll.depositSalaryFunds(1, {
+       value: ethers.utils.parseUnits(amount, 'ether'),
+     })
+     deposit.wait()
+     console.log(deposit.hash)
+     isSetLoading(false)
+   } catch (error) {
+     console.log(error)
+   }
+ }
 
   const setOwner = async () => {
 
   }
 
-  const claimSalary = async () => {
-    try {
-      const payroll = getPayrollContract()
-      const claim = await payroll.claimSalary(root)
-      claim.wait()
-      console.log(claim.hash)
-
-    } catch (error) {
-      console.log(error)
-      
+    const claimSalary = async (addrList) => {
+      console.log('hi')
+      try {
+        const payroll = getPayrollContract()
+        const merkleTree = new MerkleTree(encodeLeaf, keccak256, {
+          sortPairs: true,
+        })
+        const leaf = keccak256(currentAccount)
+        const proof = merkleTree.getHexProof(leaf)
+        console.log(proof)
+        const claim = await payroll.claimSalary(proof)
+        claim.wait()
+        console.log(claim.hash)
+      } catch (error) {
+        throw new Error('Not a valid member')
+        console.log(error)
+      }
     }
-  }
-
 
   return (
     <AnnualBudgetContext.Provider
@@ -346,7 +346,6 @@ export const AnnualBudgetProvider = ({ children }) => {
         unlockTime,
         balance,
         contractBalance,
-        mint,
         withdraw,
         claimSalary,
         payrollDeposit,
