@@ -1,36 +1,42 @@
 import { data } from 'autoprefixer'
 import profile from './profile.png'
+import { dennis, felix, ugo, ayo, ozor } from '../assets/index'
 
 const team = [
   {
-    name: 'John Williams',
-    role: 'CTO',
+    name: 'Ugochukwu Chukwuma',
+    role: 'Team Lead',
+    profile: ugo,
     description:
       'Passion for Defi. Has worked @coinbase & @google as an advisor',
   },
   {
-    name: 'John Williams',
-    role: 'CTO',
+    name: 'Igwe Uchenna Felix',
+    role: 'Solidity Developer',
+    profile: felix,
     description:
       'Passion for Defi. Has worked @coinbase & @google as an advisor',
   },
   {
-    name: 'John Williams',
-    role: 'CTO',
+    name: 'Ozor Awachie',
+    role: 'Product Designer',
+    profile: ozor,
     description:
       'Passion for Defi. Has worked @coinbase & @google as an advisor',
   },
   {
-    name: 'John Williams',
-    role: 'CTO',
+    name: 'Dennis Ogbonnaya',
+    role: 'Front End Developer',
+    profile: dennis,
     description:
-      'Passion for Defi. Has worked @coinbase & @google as an advisor',
+      'driven by the desire to build software solutions that are stable, resilient and conforms to all functional and business requirements.',
   },
   {
-    name: 'John Williams',
-    role: 'CTO',
+    name: 'Folorunsho Ayomide',
+    role: 'Web3 Front-End developer',
+    profile: ayo,
     description:
-      'Passion for Defi. Has worked @coinbase & @google as an advisor',
+      'passionate about blockchain technologies. Has worked @coinbase & @google as an advisor',
   },
 ]
 

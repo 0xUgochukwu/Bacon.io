@@ -1,7 +1,9 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Topbar, Footer } from './components/index'
-import { New_PERSONAL_SAVINGS_ROUTE, PROGRAMS_ROUTE, PERSONAL_SAVINGS_DETAILS_ROUTE } from './constants/routes';
+import { New_PERSONAL_SAVINGS_ROUTE, PROGRAMS_ROUTE, PERSONAL_SAVINGS_DETAILS_ROUTE, New_PAYROLL_ROUTE, CLAIM_PAYMENT_ROUTE, DEPOSIT_PAYROLL_ROUTE } from './constants/routes';
+import ClaimPayment from './pages/claimPayment/ClaimPayment';
+import DepositPayroll from './pages/depositPayroll/DepositPayroll';
 import {
   Home,
   About,
@@ -13,6 +15,7 @@ import {
   Programs,
   NewPersonalSavings,
 } from "./pages/index";
+import NewPayroll from './pages/newPayroll/NewPayroll';
 import PersonalSavingsDetails from "./pages/personalSavingsDetails/PersonalSavingsDetails";
 
 const App = () => {
@@ -36,6 +39,9 @@ const App = () => {
               <Route path={PROGRAMS_ROUTE} element={<Programs />} />
               <Route path={New_PERSONAL_SAVINGS_ROUTE} element={<NewPersonalSavings />} />
               <Route path={PERSONAL_SAVINGS_DETAILS_ROUTE} element={<PersonalSavingsDetails />} />
+              <Route path={New_PAYROLL_ROUTE} element={<NewPayroll />} />
+              <Route path={CLAIM_PAYMENT_ROUTE} element={<ClaimPayment />} />
+              <Route path={DEPOSIT_PAYROLL_ROUTE} element={<DepositPayroll />} />
             </Routes>
           </div>
 

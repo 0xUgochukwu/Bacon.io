@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_module/
 
 #Hardhat files
@@ -5,3 +6,7 @@ typechain-types
 cache
 artifacts
 .env
+=======
+node_modules
+
+>>>>>>> db02723103478dd9de16d07db4305287e3d659df

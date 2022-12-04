@@ -5,24 +5,24 @@ import { PROGRAMS_ROUTE } from '../constants/routes'
 const Topbar = () => {
   return (
     <div className='flex justify-between items-center px-[82px] pt-[25.5px] text-texts'>
-      <div className='text-white font-bold text-[30px] font-header leading-[46px] cursor-pointer'>
+      <div className='text-white font-normal text-[30px] font-header leading-[46px] cursor-pointer'>
         Bacon.
       </div>
       <div className=' flex justify-evenly items-center w-[536px] '>
         <Link to='/'>
-          <button className="font-header text-[23px] leading-[38px] font-normal">Home</button>
+          <button className=" text-[23px] leading-[38px] font-light">Home</button>
         </Link>
         <Link to='/about'>
-          <button className="font-header text-[23px] leading-[38px] font-normal">About</button>
+          <button className=" text-[23px] leading-[38px] font-normal">About</button>
         </Link>
         <Link to='/docs'>
-          <button className="font-header text-[23px] leading-[38px] font-normal">Docs</button>
+          <button className="text-[23px] leading-[38px] font-normal">Docs</button>
         </Link>
         <Link to='/community'>
-          <button className="font-header text-[23px] leading-[38px] font-normal">Community</button>
+          <button className="text-[23px] leading-[38px] font-normal">Community</button>
         </Link>
         <Link to='/ecosystem'>
-          <button className="font-header text-[23px] leading-[38px] font-normal">Ecosystem</button>
+          <button className=" text-[23px] leading-[38px] font-normal">Ecosystem</button>
         </Link>
       </div>
 
