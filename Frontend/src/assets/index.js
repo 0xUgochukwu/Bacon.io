@@ -23,6 +23,11 @@ import remove from './remove.svg'
 import save from './save.svg'
 import edit from './edit.svg'
 import download from './download.svg'
+import felix from './felix.jpeg'
+import dennis from './dennis.jpeg'
+import ayo from './ayo.jpeg'
+import ugo from './ugo.jpeg'
+import ozor from './ozor.png'
 
 export {
   viewReport,
@@ -49,5 +54,10 @@ export {
   chevronRight,
   remove,
   edit,
-  download
+  download,
+  felix,
+  dennis,
+  ugo,
+  ayo,
+  ozor,
 }
