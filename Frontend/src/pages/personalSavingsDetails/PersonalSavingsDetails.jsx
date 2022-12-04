@@ -70,6 +70,7 @@ const PersonalSavingsDetails = () => {
   };
   const handleDeposit = async (amount) => {
     setErrorMessage("");
+    setIsDepositing(true)
 
     try {
       await deposit(amount);
@@ -82,12 +83,12 @@ const PersonalSavingsDetails = () => {
     }
   };
   const initiateDeposit = () => {
-    setIsDepositing(true)
     toggleDeposit()
   }
 
   const toggleDeposit = () => {
     setShowDepositForm(!showDepositForm);
+    setIsDepositing(false)
   };
   const handleWithdraw = () =>{
     withdraw()
@@ -178,9 +179,9 @@ const PersonalSavingsDetails = () => {
             )}
             % of ({getTotalItemCost(items)} Matic)
           </p>{" "}
-          <p className="font-normal text-[16px] font-main leading-6 ml-20">
+          {/* <p className="font-normal text-[16px] font-main leading-6 ml-20">
             Time Left: 3 months, 12 Days
-          </p>
+          </p> */}
         </div>
 
         <div className="flex justify-center">

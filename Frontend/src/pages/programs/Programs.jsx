@@ -14,9 +14,17 @@ const Programs = () => {
   const navigate = useNavigate()
 
   const handlePersonalSavings = () => {
+    if(!currentAccount){
+      alert("Connect wallet to continue")
+      return
+    }
     navigate(New_PERSONAL_SAVINGS_ROUTE)
   }
   const handleCustomProgram = () =>{
+    if(!currentAccount){
+      alert("Connect wallet to continue")
+      return
+    }
     navigate(New_PAYROLL_ROUTE)
   }
   return (

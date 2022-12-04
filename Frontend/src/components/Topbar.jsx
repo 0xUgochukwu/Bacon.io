@@ -6,7 +6,10 @@ const Topbar = () => {
   return (
     <div className='flex justify-between items-center px-[82px] pt-[25.5px] text-texts'>
       <div className='text-white font-normal text-[30px] font-header leading-[46px] cursor-pointer'>
+        <Link to='/'>
         Bacon.
+        </Link>
+       
       </div>
       <div className=' flex justify-evenly items-center w-[536px] '>
         <Link to='/'>
