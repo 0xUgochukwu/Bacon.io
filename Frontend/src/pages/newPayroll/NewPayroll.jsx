@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { edit, loading, plus, save, viewReport } from "../../assets";
 import {
@@ -10,6 +10,7 @@ import {
 } from "../../components";
 import { savePayrollName } from "../../utills/localStorage";
 import { DEPOSIT_PAYROLL_ROUTE } from "../../constants/routes"; 
+import { AnnualBudgetContext } from '../../context/AnnualBudgetContext'
 
 const NewPayroll = () => {
   const [payrolls, setPayrolls] = useState([
@@ -21,6 +22,18 @@ const NewPayroll = () => {
   const [programName, setProgramName] = useState("New Bacon Program");
   const [isEditProgramName, setIsEditProgramName] = useState(false);
   const isLoading = false;
+  const {
+    connectWallet,
+    currentAccount,
+    claimSalary,
+    payrollDeposit,
+    setPaymentDetails,
+  } = useContext(AnnualBudgetContext)
+
+  const handlePayment = () =>{
+    //this takes a list of address, salary and time
+//setPaymentDetails()
+  }
 
   const handleAddressChange = (id, address) => {
     const updatedPayrolls = payrolls.map((payroll) =>
@@ -76,38 +89,38 @@ const NewPayroll = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <main className="ml-[78px] mr-[66px] pt-16 mb-16">
-        <div className="flex justify-between flex-wrap">
-          <div className="mb-4">
-            <h1 className="font-main font-bold text-[40px] leading-[52px]">
+    <div className='flex flex-col'>
+      <main className='ml-[78px] mr-[66px] pt-16 mb-16'>
+        <div className='flex justify-between flex-wrap'>
+          <div className='mb-4'>
+            <h1 className='font-main font-bold text-[40px] leading-[52px]'>
               Setup New Program
             </h1>
-            <div className="flex">
+            <div className='flex'>
               {isEditProgramName ? (
                 <div>
                   <input
                     value={programName}
                     onChange={(e) => setProgramName(e.target.value)}
-                    className="border-b outline-none bg-primary border-[#3940DE]"
-                    placeholder="Enter name"
+                    className='border-b outline-none bg-primary border-[#3940DE]'
+                    placeholder='Enter name'
                   />
                 </div>
               ) : (
-                <h3 className="font-main font-medium text-[30px] text-[#3940DE] leading-[39.06px]">
+                <h3 className='font-main font-medium text-[30px] text-[#3940DE] leading-[39.06px]'>
                   {programName}
                 </h3>
               )}
               {isEditProgramName ? (
                 <button
-                  className="outline-none ml-3"
+                  className='outline-none ml-3'
                   onClick={handleSaveProgramName}
                 >
                   Save
                 </button>
               ) : (
                 <button
-                  className="outline-none ml-3"
+                  className='outline-none ml-3'
                   onClick={toggleEditProgramName}
                 >
                   <img src={edit} />
@@ -117,23 +130,23 @@ const NewPayroll = () => {
           </div>
           <PayrollWallet />
         </div>
-        <div className="px-[1px] py-[1px]   w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16">
-          <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4 px-10">
-            <p className="font-bold mb-8 text-[20px] leading-6 text-white font-main">
+        <div className='px-[1px] py-[1px]   w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16'>
+          <div className='bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4 px-10'>
+            <p className='font-bold mb-8 text-[20px] leading-6 text-white font-main'>
               Time Structure
             </p>
-            <div className="flex justify-between mb-8">
-              <p className="font-semibold text-[20px] leading-6 text-white font-main">
+            <div className='flex justify-between mb-8'>
+              <p className='font-semibold text-[20px] leading-6 text-white font-main'>
                 Intervals
               </p>
               <SelectField
-                label="Month"
+                label='Month'
                 value={months}
                 onIncrease={handleMonthInc}
                 onDecrease={handleMonthDec}
               />
               <SelectField
-                label="Day"
+                label='Day'
                 value={days}
                 onDecrease={handleDaysDec}
                 onIncrease={handleDaysInc}
@@ -142,31 +155,31 @@ const NewPayroll = () => {
           </div>
         </div>
         <form onSubmit={handleSave}>
-          <div className="button h-[120px] mt-20 rounded-[20px] p-[1px]">
-            <div className=" h-[100%] rounded-[20px] bg-[#08081E] px-10 ">
-              <p className="text-[20px] font-semibold font-main leading-6 py-3">
+          <div className='button h-[120px] mt-20 rounded-[20px] p-[1px]'>
+            <div className=' h-[100%] rounded-[20px] bg-[#08081E] px-10 '>
+              <p className='text-[20px] font-semibold font-main leading-6 py-3'>
                 Pay Amount
               </p>
 
-              <div className="button h-[50px] rounded-[20px] p-[1px]">
+              <div className='button h-[50px] rounded-[20px] p-[1px]'>
                 <input
                   value={amount}
                   onChange={handleAmountChange}
-                  className=" h-[100%] rounded-[20px] bg-black w-full outline-none pl-6 "
-                  type="number"
+                  className=' h-[100%] rounded-[20px] bg-black w-full outline-none pl-6 '
+                  type='number'
                   required
                 />
               </div>
             </div>
           </div>
-          <div className="px-[1px] py-[1px]  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16">
-            <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4 px-8">
-              <div className="overflow-auto">
-                <table className="w-[100%]  m-w-[450px]">
+          <div className='px-[1px] py-[1px]  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16'>
+            <div className='bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4 px-8'>
+              <div className='overflow-auto'>
+                <table className='w-[100%]  m-w-[450px]'>
                   <thead>
                     <tr>
                       <th
-                        className="p-2 font-bold text-[20px] leading-6 font-main text-left"
+                        className='p-2 font-bold text-[20px] leading-6 font-main text-left'
                         colSpan={2}
                       >
                         Members
@@ -179,9 +192,9 @@ const NewPayroll = () => {
                   <tbody>
                     {!payrolls.length ? (
                       <tr>
-                        <td className="text-center" colSpan={3}>
-                          <div className="text-center">
-                            <Jumbotron message="No Items" />
+                        <td className='text-center' colSpan={3}>
+                          <div className='text-center'>
+                            <Jumbotron message='No Items' />
                           </div>
                         </td>
                       </tr>
@@ -202,40 +215,43 @@ const NewPayroll = () => {
                   </tbody>
                 </table>
                 <button
-                  className="button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex"
+                  className='button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex'
                   onClick={handleAddMember}
-                  type="button"
+                  type='button'
                 >
                   <img src={plus} />
-                  <span className="ml-3">Add Member</span>
+                  <span className='ml-3'>Add Member</span>
                 </button>
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-center mt-4">
+          <div className='w-full flex justify-center mt-4'>
             {!isLoading ? (
-              <button className="button rounded-[20px] my-16 items-center font-normal font-main text-[20px]  p-8">
-                <div className="flex self-center">
+              <button
+                onClick={handlePayment}
+                className='button rounded-[20px] my-16 items-center font-normal font-main text-[20px]  p-8'
+              >
+                <div className='flex self-center'>
                   <img
                     src={save}
-                    alt="save"
-                    className="w-[24.93px] h-[24.2px] mr-4"
+                    alt='save'
+                    className='w-[24.93px] h-[24.2px] mr-4'
                   />
-                  <span className="font-normal text-[20px] font-main leading-6">
+                  <span className='font-normal text-[20px] font-main leading-6'>
                     Save Program
                   </span>
                 </div>
               </button>
             ) : (
               <button>
-                <img src={loading} alt="Loading" />
+                <img src={loading} alt='Loading' />
               </button>
             )}
           </div>
         </form>
       </main>
     </div>
-  );
+  )
 };
 
 export default NewPayroll;

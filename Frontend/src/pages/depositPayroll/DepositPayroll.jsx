@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { download, loading, save } from "../../assets";
 import { PayrollWallet } from "../../components";
 import { getPayrollName } from "../../utills/localStorage";
+import { AnnualBudgetContext } from '../../context/AnnualBudgetContext'
 
 const DepositPayroll = () => {
   const [amount, setAmount] = useState("");
   const isLoading = false;
+  const {
+    payrollDeposit,
+ 
+  } = useContext(AnnualBudgetContext)
   const payrollName = getPayrollName();
 
   const handleAmountChange = (e) => {
@@ -13,6 +18,7 @@ const DepositPayroll = () => {
   };
   const handleDeposit = (e) => {
     e.preventDefault();
+    payrollDeposit(amount)
   };
   return (
     <div className="flex flex-col">

@@ -8,12 +8,20 @@ import {
 import { AnnualBudgetContext } from '../../context/AnnualBudgetContext'
 
 const ClaimPayment = () => {
-  const { connectWallet, currentAccount, checkIfWalletIsConnected } =
-    useContext(AnnualBudgetContext)
+  const {
+    connectWallet,
+    currentAccount,
+    claimSalary,
+    payrollDeposit,
+    setPaymentDetails,
+  } = useContext(AnnualBudgetContext)
   const navigate = useNavigate()
 
   const handlePersonalSavings = () => {
     navigate(New_PERSONAL_SAVINGS_ROUTE)
+  }
+  const handleclaim = () => {
+    claimSalary()
   }
   return (
     <div className='flex flex-col'>
@@ -40,7 +48,10 @@ const ClaimPayment = () => {
           </button>
         ) : (
           <div className='flex flex-row mt-16 justify-center'>
-            <button className='font-main py-[35.5px] sm:w-[40%] justify-center rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] '>
+            <button
+              onClick={handleclaim}
+              className='font-main py-[35.5px] sm:w-[40%] justify-center rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] '
+            >
               Claim payment
             </button>
           </div>

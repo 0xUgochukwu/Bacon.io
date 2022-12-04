@@ -257,13 +257,16 @@ const [encodeLeaf, setEncodeLeaf] = useState(localStorage.getItem('encodeLeaf'))
       const rootHash = merkleTree.getHexRoot()
       console.log(rootHash)
       setRoot[rootHash]
+
       const details = await payroll.setPaymentDeatils(
         rootHash,
         ethers.utils.parseUnits(salary, 'ether'),
         time
       )
+      isLoading(true)
       details.wait()
       console.log(details.hash)
+      isLoading(false)
     } catch (error) {
       console.log(error)
       throw new Error('No allowed to call this. Admin only')
@@ -272,6 +275,7 @@ const [encodeLeaf, setEncodeLeaf] = useState(localStorage.getItem('encodeLeaf'))
 
  const payrollDeposit = async (amount) => {
    try {
+    if (!ethereum) return alert('Please Install metamask')
      const payroll = getPayrollContract()
      const payrollToken = getPayrollTokenContract()
      console.log(payrollToken)
@@ -309,9 +313,9 @@ const [encodeLeaf, setEncodeLeaf] = useState(localStorage.getItem('encodeLeaf'))
 
   }
 
-    const claimSalary = async (addrList) => {
-      console.log('hi')
+    const claimSalary = async () => {
       try {
+        if (!ethereum) return alert('Please Install metamask')
         const payroll = getPayrollContract()
         const merkleTree = new MerkleTree(encodeLeaf, keccak256, {
           sortPairs: true,
@@ -320,9 +324,12 @@ const [encodeLeaf, setEncodeLeaf] = useState(localStorage.getItem('encodeLeaf'))
         const proof = merkleTree.getHexProof(leaf)
         console.log(proof)
         const claim = await payroll.claimSalary(proof)
+        isLoading(true)
         claim.wait()
         console.log(claim.hash)
+        isLoading(false)
       } catch (error) {
+        alert('Not a valid member')
         throw new Error('Not a valid member')
         console.log(error)
       }
