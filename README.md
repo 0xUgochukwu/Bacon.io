@@ -5,7 +5,7 @@ Manage your Money On a Trustless System
 
 ### Introduction
 
-Money management is an important aspect of life. It is critical that one is able to save and budget their money in order to achieve financial freedom.  Bacon.io is a decentralized application that runs on a blockchain network and provides users with the tools to help them manage their finances, save and budget their money on the blockchain without the need for a trusted third party.
+Money management is an important aspect of life. It is critical that one is able to save and budget their money in order to achieve financial freedom.  Bacon.io is a decentralized application that provides users with the tools to help them manage their finances, save and budget their money on the blockchain without the need for a trusted third party.
 
 ### Features
 
