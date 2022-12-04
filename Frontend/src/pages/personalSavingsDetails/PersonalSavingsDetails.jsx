@@ -10,6 +10,7 @@ import {
   Wallet,
 } from "../../components";
 import { AnnualBudgetContext } from "../../context/AnnualBudgetContext";
+import { getSavingsName, saveSavingsName } from "../../utills/localStorage";
 
 const PersonalSavingsDetails = () => {
   const {
@@ -24,6 +25,7 @@ const PersonalSavingsDetails = () => {
   const [unlockTime, setUnlockTime] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [showDepositForm, setShowDepositForm] = useState(false);
+  const savingsName = getSavingsName();
 
   useEffect(() => {
     (async () => {
@@ -62,7 +64,7 @@ const PersonalSavingsDetails = () => {
   const calculateGoalPercentage = (value, totalValue) => {
     const percentage = (parseInt(value) / parseInt(totalValue)) * 100;
 
-    return percentage.toFixed(2)
+    return percentage.toFixed(2);
   };
   const handleDeposit = async (amount) => {
     setErrorMessage("");
@@ -86,7 +88,9 @@ const PersonalSavingsDetails = () => {
             <h1 className="font-main font-bold text-[40px] leading-[52px]">
               Savings Program Name
             </h1>
-            <img src={viewReport} />
+            <h3 className="font-main font-medium text-[30px] text-[#3940DE] leading-[39.06px]">
+              {savingsName}
+            </h3>
           </div>
           <Wallet />
         </div>

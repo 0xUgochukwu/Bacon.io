@@ -5,3 +5,11 @@ export const savePayrollName = (payrollName) => {
 export const getPayrollName = () => {
   return localStorage.payrollName;
 };
+
+export const saveSavingsName = (savingsName) => {
+  localStorage.savingsName = savingsName;
+};
+
+export const getSavingsName = () => {
+  return localStorage.savingsName;
+};
