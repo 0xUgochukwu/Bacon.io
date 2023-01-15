@@ -107,7 +107,7 @@ const NewPersonalSavings = () => {
 
   return (
     <div className="flex flex-col">
-      <main className="p-[28px] sm:ml-[78px] sm:mr-[66px] sm:pt-16 sm:mb-16">
+      <main className="p-[28px] lg:ml-[78px] lg:mr-[66px] sm:pt-16 sm:mb-16">
         <div className="flex justify-between flex-wrap">
           <div className="mb-8">
             <h1 className="text-[20px] leading-[26px] mb-[10px] font-main w-full font-bold sm:text-[40px] sm:leading-[52px]">
@@ -148,7 +148,7 @@ const NewPersonalSavings = () => {
           <Wallet />
         </div>
         <form onSubmit={handleSavings}> 
-        <div className="px-[1px] py-[1px]  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16">
+        <div className="px-[1px] py-[1px] box  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16">
           <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4">
             <div className="overflow-auto">
               <table className="w-[100%]  m-w-[450px]">

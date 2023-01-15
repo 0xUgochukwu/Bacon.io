@@ -9,12 +9,12 @@ import profile from './profile.png'
 import circle from './circle.svg'
 import popular from './popular.svg'
 import backtoTop from './backtoTop.svg'
-import arrowUp from "./arrowUp.svg";
-import deleteIc from "./delete.svg";
-import plus from "./pluss.svg";
-import cart from "./cart.svg";
-import programTitle from "./programTitle.svg";
-import viewReport from "./viewReport.svg";
+import arrowUp from './arrowUp.svg'
+import deleteIc from './delete.svg'
+import plus from './pluss.svg'
+import cart from './cart.svg'
+import programTitle from './programTitle.svg'
+import viewReport from './viewReport.svg'
 import loading from './loading.svg'
 import person from './person.svg'
 import chevronLeft from './chevronLeft.svg'
@@ -23,6 +23,7 @@ import remove from './remove.svg'
 import save from './save.svg'
 import edit from './edit.svg'
 import download from './download.svg'
+import arrowDown from './arrowDown.svg'
 import felix from './felix.jpeg'
 import dennis from './dennis.jpeg'
 import ayo from './ayo.jpeg'
@@ -55,6 +56,7 @@ export {
   remove,
   edit,
   download,
+  arrowDown,
   felix,
   dennis,
   ugo,

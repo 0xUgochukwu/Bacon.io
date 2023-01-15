@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { edit, loading, plus, save, viewReport } from "../../assets";
 import {
   Jumbotron,
@@ -8,6 +9,8 @@ import {
   Wallet,
 } from "../../components";
 import { savePayrollName } from "../../utills/localStorage";
+import { DEPOSIT_PAYROLL_ROUTE } from "../../constants/routes"; 
+import { AnnualBudgetContext } from '../../context/AnnualBudgetContext'
 
 const NewPayroll = () => {
   const [payrolls, setPayrolls] = useState([
@@ -19,6 +22,18 @@ const NewPayroll = () => {
   const [programName, setProgramName] = useState("New Bacon Program");
   const [isEditProgramName, setIsEditProgramName] = useState(false);
   const isLoading = false;
+  const {
+    connectWallet,
+    currentAccount,
+    claimSalary,
+    payrollDeposit,
+    setPaymentDetails,
+  } = useContext(AnnualBudgetContext)
+
+  const handlePayment = () =>{
+    //this takes a list of address, salary and time
+//setPaymentDetails()
+  }
 
   const handleAddressChange = (id, address) => {
     const updatedPayrolls = payrolls.map((payroll) =>
@@ -62,6 +77,7 @@ const NewPayroll = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
+    Navigate(DEPOSIT_PAYROLL_ROUTE )
   };
 
   const toggleEditProgramName = () => {
@@ -74,37 +90,37 @@ const NewPayroll = () => {
 
   return (
     <div className="flex flex-col">
-      <main className="p-[28Px] sm:ml-[78px] sm:mr-[66px] pt-16 mb-16">
+      <main className="p-[28Px] lg:ml-[78px] lg:mr-[66px] pt-16 mb-16">
         <div className="flex justify-between flex-wrap">
           <div className="mb-4">
             <h1 className="font-main text-[20px] font-bold sm:text-[40px] leading-[52px]">
               Setup New Program
             </h1>
-            <div className="flex">
+            <div className='flex'>
               {isEditProgramName ? (
                 <div>
                   <input
                     value={programName}
                     onChange={(e) => setProgramName(e.target.value)}
-                    className="border-b outline-none bg-primary border-[#3940DE]"
-                    placeholder="Enter name"
+                    className='border-b outline-none bg-primary border-[#3940DE]'
+                    placeholder='Enter name'
                   />
                 </div>
               ) : (
-                <h3 className="font-main font-medium text-[30px] text-[#3940DE] leading-[39.06px]">
+                <h3 className='font-main font-medium text-[30px] text-[#3940DE] leading-[39.06px]'>
                   {programName}
                 </h3>
               )}
               {isEditProgramName ? (
                 <button
-                  className="outline-none ml-3"
+                  className='outline-none ml-3'
                   onClick={handleSaveProgramName}
                 >
                   Save
                 </button>
               ) : (
                 <button
-                  className="outline-none ml-3"
+                  className='outline-none ml-3'
                   onClick={toggleEditProgramName}
                 >
                   <img src={edit} />
@@ -131,7 +147,7 @@ const NewPayroll = () => {
                 onDecrease={handleMonthDec}
               />
               <SelectField
-                label="Day"
+                label='Day'
                 value={days}
                 onDecrease={handleDaysDec}
                 onIncrease={handleDaysInc}
@@ -154,8 +170,8 @@ const NewPayroll = () => {
                 <input
                   value={amount}
                   onChange={handleAmountChange}
-                  className=" h-[100%] rounded-[20px] bg-black w-full outline-none pl-6 "
-                  type="number"
+                  className=' h-[100%] rounded-[20px] bg-black w-full outline-none pl-6 '
+                  type='number'
                   required
                 />
               </div>
@@ -168,7 +184,7 @@ const NewPayroll = () => {
                   <thead>
                     <tr>
                       <th
-                        className="p-2 font-bold text-[20px] leading-6 font-main text-left"
+                        className='p-2 font-bold text-[20px] leading-6 font-main text-left'
                         colSpan={2}
                       >
                         Members
@@ -181,9 +197,9 @@ const NewPayroll = () => {
                   <tbody>
                     {!payrolls.length ? (
                       <tr>
-                        <td className="text-center" colSpan={3}>
-                          <div className="text-center">
-                            <Jumbotron message="No Items" />
+                        <td className='text-center' colSpan={3}>
+                          <div className='text-center'>
+                            <Jumbotron message='No Items' />
                           </div>
                         </td>
                       </tr>
@@ -204,12 +220,12 @@ const NewPayroll = () => {
                   </tbody>
                 </table>
                 <button
-                  className="button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex"
+                  className='button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex'
                   onClick={handleAddMember}
-                  type="button"
+                  type='button'
                 >
                   <img src={plus} />
-                  <span className="ml-3">Add Member</span>
+                  <span className='ml-3'>Add Member</span>
                 </button>
               </div>
             </div>
@@ -223,21 +239,21 @@ const NewPayroll = () => {
                     alt="save"
                     className="w-[24.93px] h-[24.2px] sm:mr-4"
                   />
-                  <span className="font-normal text-[20px] font-main leading-6">
+                  <span className='font-normal text-[20px] font-main leading-6'>
                     Save Program
                   </span>
                 </div>
               </button>
             ) : (
               <button>
-                <img src={loading} alt="Loading" />
+                <img src={loading} alt='Loading' />
               </button>
             )}
           </div>
         </form>
       </main>
     </div>
-  );
+  )
 };
 
 export default NewPayroll;

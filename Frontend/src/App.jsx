@@ -22,7 +22,7 @@ const App = () => {
   return (
     <>
       <div className='font-main bg-primary text-white   '>
-        <Topbar />
+        {/* <Topbar /> */}
         <div className='relative '>
           <div className='body'>
             <Routes>
@@ -46,7 +46,7 @@ const App = () => {
           </div>
 
           <div className='absolute bottom-0 w-full'>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </div>
