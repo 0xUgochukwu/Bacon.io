@@ -12,7 +12,7 @@ const PayrollItem = ({
     <tr>
       <td className="p-2" colSpan={2}>
         <div className="flex">
-          <img src={person} className="self-start mr-4" />{" "}
+          <img src={person} className="self-start mr-4 w-[25px] h-[25px]" />{" "}
           <input
             value={payroll.address}
             onChange={(e) => onAddressChange(payroll.id, e.target.value)}
@@ -25,8 +25,10 @@ const PayrollItem = ({
 
 
       <td className="text-[18px] pl-4">
+      <button className="sm:hidden w-[23px] h-[23px] text-[#ffffff] text-[20px]" onClick={() => onRemove(payroll.id)}
+          type="button">X</button>
         <button
-          className="button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex"
+          className="button hidden py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] sm:flex"
           onClick={() => onRemove(payroll.id)}
           type="button"
         >

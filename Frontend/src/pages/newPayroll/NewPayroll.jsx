@@ -74,10 +74,10 @@ const NewPayroll = () => {
 
   return (
     <div className="flex flex-col">
-      <main className="ml-[78px] mr-[66px] pt-16 mb-16">
+      <main className="p-[28Px] sm:ml-[78px] sm:mr-[66px] pt-16 mb-16">
         <div className="flex justify-between flex-wrap">
           <div className="mb-4">
-            <h1 className="font-main font-bold text-[40px] leading-[52px]">
+            <h1 className="font-main text-[20px] font-bold sm:text-[40px] leading-[52px]">
               Setup New Program
             </h1>
             <div className="flex">
@@ -114,16 +114,17 @@ const NewPayroll = () => {
           </div>
           <PayrollWallet />
         </div>
-        <div className="px-[1px] py-[1px]   w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16">
-          <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4 px-10">
-            <p className="font-bold mb-8 text-[20px] leading-6 text-white font-main">
+        <div className="px-[1px] py-[1px] mt-[30px]   w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main sm:mt-16">
+          <div className="bg-[#08081E]  w-[100%] h-[100%] rounded-[20px] p-4 sm:px-10">
+            <p className="font-bold mb-8 text-[19px] sm:text-[20px] leading-6 text-white font-main">
               Time Structure
             </p>
-            <div className="flex justify-between mb-8">
-              <p className="font-semibold text-[20px] leading-6 text-white font-main">
+            <div className="flex flex-col sm:flex-row justify-between mb-8 overflow-auto">
+              <p className="font-semibold mb-1 sm:mb-0 text-[18px] sm:text-[20px] leading-6 text-white font-main">
                 Intervals
               </p>
-              <SelectField
+             <div className="flex gap-[30px] sm:gap-0 sm:justify-between sm:w-[70%] lg:w-[50%]">
+             <SelectField
                 label="Month"
                 value={months}
                 onIncrease={handleMonthInc}
@@ -135,17 +136,21 @@ const NewPayroll = () => {
                 onDecrease={handleDaysDec}
                 onIncrease={handleDaysInc}
               />
+             </div>
+             
+            
+             
             </div>
           </div>
         </div>
         <form onSubmit={handleSave}>
-          <div className="button h-[120px] mt-20 rounded-[20px] p-[1px]">
-            <div className=" h-[100%] rounded-[20px] bg-[#08081E] px-10 ">
+          <div className="button h-[120px] sm:h-[130px] mt-[20px] sm:mt-20 rounded-[20px] p-[1px]">
+            <div className=" h-[100%] rounded-[20px] bg-[#08081E] p-4 sm:px-10 pb-2 ">
               <p className="text-[20px] font-semibold font-main leading-6 py-3">
                 Pay Amount
               </p>
 
-              <div className="button h-[50px] rounded-[20px] p-[1px]">
+              <div className="button h-[40px] sm:h-[50px] rounded-[20px] p-[1px] mb-7">
                 <input
                   value={amount}
                   onChange={handleAmountChange}
@@ -156,8 +161,8 @@ const NewPayroll = () => {
               </div>
             </div>
           </div>
-          <div className="px-[1px] py-[1px]  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center text-[25px] leading-[32.55px] font-bold font-main mt-16">
-            <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4 px-8">
+          <div className="px-[1px] py-[1px]  w-[100%] h-fit rounded-[20px] button flex flex-col items-center justify-center mt-[20px] text-[25px] leading-[32.55px] font-bold font-main sm:mt-16">
+            <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4 sm:px-8">
               <div className="overflow-auto">
                 <table className="w-[100%]  m-w-[450px]">
                   <thead>
@@ -209,14 +214,14 @@ const NewPayroll = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-center mt-4">
+          <div className="w-full flex justify-center mt-6 sm:mt-4">
             {!isLoading ? (
-              <button className="button rounded-[20px] my-16 items-center font-normal font-main text-[20px]  p-8">
-                <div className="flex self-center">
+              <button className="button h-[42px] text-center rounded-[20px] p-3 sm:my-16  font-normal font-main text-[20px]  sm:p-10 flex justify-center items-center">
+                <div className="flex self-center gap-[10px]">
                   <img
                     src={save}
                     alt="save"
-                    className="w-[24.93px] h-[24.2px] mr-4"
+                    className="w-[24.93px] h-[24.2px] sm:mr-4"
                   />
                   <span className="font-normal text-[20px] font-main leading-6">
                     Save Program

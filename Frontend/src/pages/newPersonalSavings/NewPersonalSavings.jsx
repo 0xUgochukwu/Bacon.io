@@ -107,10 +107,10 @@ const NewPersonalSavings = () => {
 
   return (
     <div className="flex flex-col">
-      <main className="ml-[78px] mr-[66px] pt-16 mb-16">
+      <main className="p-[28px] sm:ml-[78px] sm:mr-[66px] sm:pt-16 sm:mb-16">
         <div className="flex justify-between flex-wrap">
           <div className="mb-8">
-            <h1 className="font-main font-bold text-[40px] leading-[52px]">
+            <h1 className="text-[20px] leading-[26px] mb-[10px] font-main w-full font-bold sm:text-[40px] sm:leading-[52px]">
               Setup New Personal Savings
             </h1>
             <div className="flex">
@@ -152,7 +152,7 @@ const NewPersonalSavings = () => {
           <div className="bg-[#08081E] w-[100%] h-[100%] rounded-[20px] p-4">
             <div className="overflow-auto">
               <table className="w-[100%]  m-w-[450px]">
-                <thead>
+                <thead className=" sm:block">
                   <tr>
                     <th
                       className="p-4 font-bold text-[20px] leading-6 font-main text-left"
