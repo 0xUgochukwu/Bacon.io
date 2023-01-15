@@ -14,11 +14,11 @@ const ProgramItem = ({
     <tr>
       <td className="p-2" colSpan={2}>
         <div className="flex  ">
-          <img src={cart} className="self-start" />{" "}
+          <img src={cart} className="hidden sm:block self-start" />{" "}
           <input
             value={item.itemName}
             onChange={(e) => onItemChange(item.key, e.target.value)}
-            className="bg-primary ml-8 w-full outline-none p-1 font-normal text-white font-main text-[20px] leading-6"
+            className="bg-primary ml-[1px] sm:ml-8 w-full outline-none p-1 font-normal text-white font-main text-[20px] leading-6"
             placeholder="Enter Name"
             required
           />
@@ -26,7 +26,7 @@ const ProgramItem = ({
       </td>
       <td className="p-2">
         <div className="flex">
-          <div className="w-[60px] h-[60px] p-[2px] bg-[white] ml-3 flex justify-center button items-center rounded-xl self-center">
+          <div className="w-[57px] h-[50px] rounded-[14px] sm:w-[60px] sm:h-[60px] p-[2px] bg-[white] ml-3 flex justify-center button items-center rounded-xl self-center">
             <input
             required
               value={item.cost}
@@ -59,13 +59,15 @@ const ProgramItem = ({
         </div>
       </td>
       <td className="text-[18px] pl-4">
+        <button className="sm:hidden w-[23px] h-[23px] text-[#ffffff] text-[20px]" onClick={() => onRemove(item.key)}
+          type="button">X</button>
         <button
-          className="button py-[3px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] flex"
+          className="button hidden  py-[3px] pl-[10px] px-[20px] rounded-[20px] my-5 items-center font-normal font-main text-[20px] sm:flex"
           onClick={() => onRemove(item.key)}
           type="button"
         >
-          <img src={remove} />
-          <span className="ml-3">Remove</span>
+          <img src={remove} className="w-[15px] h-[15px]" />
+          <span className="text-[12px] sm:text-[20px] ml-3">Remove</span>
         </button>
       </td>
     </tr>

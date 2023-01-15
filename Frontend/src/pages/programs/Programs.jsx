@@ -29,9 +29,9 @@ const Programs = () => {
   }
   return (
     <div className='flex flex-col'>
-      <main className='ml-[78px] mr-[66px] pt-16 mb-32'>
-        <div className='flex justify-between'>
-          <h1 className='font-main font-bold text-[40px] leading-[52px] text-white'>
+      <main className='p-[28px] lg:ml-[78px] lg:mr-[66px] pt-16 mb-32'>
+        <div className='flex flex-col lg:flex-row justify-between'>
+          <h1 className='font-main mb-[50px] lg:mb-0 font-bold text-[20px] leading-6 sm:text-[40px] sm:leading-[52px] text-white'>
             Programs
           </h1>
           {currentAccount && (
@@ -41,18 +41,18 @@ const Programs = () => {
           )}
         </div>
 
-        <div className='w-[50%] mx-auto'>
-          <div className='flex flex-row mt-16 w-[100%] gap-4'>
+        <div className='w-[98%] sm:w-[50%] mx-auto'>
+          <div className='flex flex-col lg:flex-row mt-16 w-[100%] gap-4'>
             <button
               onClick={handlePersonalSavings}
-              className='font-main py-[35.5px] w-[49%] justify-center border rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] text-center '
+              className='font-main py-[35.5px] w-full lg:w-[49%] justify-center border rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] text-center '
             >
               Personal Savings
             </button>
 
             <button
               onClick={handleCustomProgram}
-              className='font-main py-[35.5px] w-[49%] justify-center rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] '
+              className='font-main py-[35.5px] w-full lg:w-[49%] justify-center rounded-[20px] button font-bold text-[25px] flex items-center leading-[33px] '
             >
               Custom Program
             </button>
