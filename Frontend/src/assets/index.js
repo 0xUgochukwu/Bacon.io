@@ -24,6 +24,7 @@ import save from './save.svg'
 import edit from './edit.svg'
 import download from './download.svg'
 import arrowDown from './arrowDown.svg'
+import menu from './menu.svg'
 import felix from './felix.jpeg'
 import dennis from './dennis.jpeg'
 import ayo from './ayo.jpeg'
@@ -57,6 +58,7 @@ export {
   edit,
   download,
   arrowDown,
+  menu,
   felix,
   dennis,
   ugo,
