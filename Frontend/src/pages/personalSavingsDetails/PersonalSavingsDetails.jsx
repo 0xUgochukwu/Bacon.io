@@ -94,11 +94,11 @@ const PersonalSavingsDetails = () => {
     withdraw()
   }
   return (
-    <div className="flex flex-col">
-      <main className="ml-[78px] mr-[66px] pt-16 mb-auto mb-16">
+    <div className="flex flex-col ">
+      <main className="p-[28px] sm:ml-[78px] sm:mr-[66px] pt-16 mb-auto">
         <div className="flex justify-between flex-wrap">
           <div className="mb-4">
-            <h1 className="font-main font-bold text-[40px] leading-[52px]">
+            <h1 className="font-main text-[20px] font-bold sm:text-[40px] leading-[52px]">
               {savingsName}
             </h1>
             <h3 className="font-main font-medium text-[30px] text-[#3940DE] leading-[39.06px]">
@@ -187,14 +187,14 @@ const PersonalSavingsDetails = () => {
         <div className="flex justify-center">
           <div className="flex gap-4">
             <button
-              className="button p-[8px] rounded-[20px] my-16 items-center font-normal font-main text-[20px]"
+              className="button text-[18px] p-[8px] rounded-[20px] my-16 items-center font-normal font-main sm:text-[20px]"
               onClick={initiateDeposit}
               disabled={isLoading}
             >
               Deposit
             </button>
             {!isDeposting &&
-            <button className="button p-[8px] rounded-[20px] my-16 items-center font-normal font-main text-[20px]" onClick={handleWithdraw}>
+            <button className="button text-[18px] p-[8px] rounded-[20px] my-16 items-center font-normal font-main sm:text-[20px]" onClick={handleWithdraw}>
               Widthraw
             </button>
             }
