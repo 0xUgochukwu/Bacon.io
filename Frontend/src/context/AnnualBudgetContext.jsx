@@ -42,7 +42,7 @@ const getPayrollContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum)
   const signer = provider.getSigner()
   const payroll = new ethers.Contract(payrollAddress, PayrollABI, signer)
-  console.log(payroll)
+  return payroll
 
 }
 

@@ -5,14 +5,14 @@ import { backtoTop } from '../assets/index'
 const Footer = () => {
   return (
     <>
-      <div className='flex justify-between items-center px-[82px]  text-texts'>
-        <div className='text-white font-bold text-[30px] font-header leading-[46px] cursor-pointer'>
+      <div className='flex  justify-between items-center px-[82px]  text-texts'>
+        <div className='  text-white font-bold text-[30px] font-header leading-[46px] cursor-pointer'>
           Bacon.
           <p className='inline font-header text-white font-normal text-[25px] leading-[37.8px]'>
             &#169; 2022
           </p>
         </div>
-        <div className=' flex justify-evenly items-center w-[536px] '>
+        <div className='md:flex hidden  justify-evenly items-center w-[536px] '>
           <Link to='/'>
             <button className=' text-[23px] leading-[38px] font-light'>
               Home
@@ -39,7 +39,7 @@ const Footer = () => {
             </button>
           </Link>
         </div>
-        <div>
+        <div >
           <img src={backtoTop} alt=' back to top' />
         </div>
       </div>
