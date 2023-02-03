@@ -76,7 +76,7 @@ contract BudgetDapp {
     function changeUnlockTime(_unlockTime) public isOnwer returns (bool success){
         require(block.timestamp < _unlockTime, "Increase time please");
         
-        require(unlockTimeChangeCount <= unlockTimeCount, "Change time reached");
+        require(unlockTimeChangeCount < unlockTimeCount, "Change time reached");
   
         unlockTime = _unlockTime;
         emit ChangeUnlockTime(msg.sender, _unlockTime);
