@@ -30,6 +30,8 @@ contract BudgetDapp {
     // ===========================
 
     uint256 public unlockTime;
+    uint256 private unlockTimeChangeCount = 0;
+    uint256 private unlockTimeCount = 2;
     uint256 public budgetCount = 0;
     uint256 public initialBudgetFunds;
     address payable public owner;
@@ -73,10 +75,14 @@ contract BudgetDapp {
 
     function changeUnlockTime(_unlockTime) public isOnwer returns (bool success){
         require(block.timestamp < _unlockTime, "Increase time please");
-
+        
+        require(unlockTimeChangeCount <= unlockTimeCount, "Change time reached");
+  
         unlockTime = _unlockTime;
         emit ChangeUnlockTime(msg.sender, _unlockTime);
-
+        
+        unlockTimeChangeCount++;
+        
         return true;
     }
 
