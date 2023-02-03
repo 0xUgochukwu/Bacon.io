@@ -11,8 +11,8 @@ contract BudgetDapp {
     // ===========================
 
     event ItemRemoved(uint256 indexed ID);
-    // event ChangeOwner(address oldOwner, address newOwner);
-    // event ChangeUnlockTime(address onwer, uint256 unlockTime);
+    event ChangeOwner(address oldOwner, address newOwner);
+    event ChangeUnlockTime(address onwer, uint256 unlockTime);
     event Withdrawal(uint256 amount, uint256 when);
     event BudgetCreated(uint256 indexed ID, uint256 indexed amount, string content, bool created);
 
@@ -20,10 +20,10 @@ contract BudgetDapp {
     // CUSTOM ERROR
     // ===========================
 
-    error transferFailed();
-    error amountEqualZero();
-    error notOwner();
-    error notYetTime();
+    // error transferFailed();
+    // error amountEqualZero();
+    // error notOwner();
+    // error notYetTime();
 
     // ===========================
     // STATE VARIABLE
