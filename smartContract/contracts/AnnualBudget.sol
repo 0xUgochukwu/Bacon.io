@@ -34,7 +34,7 @@ contract BudgetDapp {
     uint256 private unlockTimeCount = 2;
     uint256 public budgetCount = 0;
     uint256 public initialBudgetFunds;
-    address payable public owner;
+    address public payable owner;
     ERC20 public maticContractAddress;
 
     struct budgetItems {
