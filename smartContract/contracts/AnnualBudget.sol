@@ -11,31 +11,30 @@ contract BudgetDapp {
     // ===========================
 
     event ItemRemoved(uint256 indexed ID);
+    event ChangeOwner(address oldOwner, address newOwner);
+    event ChangeUnlockTime(address onwer, uint256 unlockTime);
     event Withdrawal(uint256 amount, uint256 when);
-     event BudgetCreated(
-        uint256 indexed ID,
-        uint256 indexed amount,
-        string indexed content,
-        bool created
-    );
+    event BudgetCreated(uint256 indexed ID, uint256 indexed amount, string content, bool created);
 
     // ===========================
     // CUSTOM ERROR
     // ===========================
 
-    error transferFailed();
-    error amountEqualZero();
-    error notOwner();
-    error notYetTime();
+    // error transferFailed();
+    // error amountEqualZero();
+    // error notOwner();
+    // error notYetTime();
 
     // ===========================
     // STATE VARIABLE
     // ===========================
 
     uint256 public unlockTime;
+    uint256 private unlockTimeChangeCount = 0;
+    uint256 private unlockTimeCount = 2;
     uint256 public budgetCount = 0;
     uint256 public initialBudgetFunds;
-    address payable public owner;
+    address public payable owner;
     ERC20 public maticContractAddress;
 
     struct budgetItems {
@@ -48,6 +47,11 @@ contract BudgetDapp {
     budgetItems[] myBudgetList;
 
     mapping(uint256 => budgetItems) public Budgets;
+    
+    modifier isOnwer(){
+        require(msg.sender == owner);
+        _;
+    }
 
     // @param _maticContractAddress to initialize the token used to transact with the contract
     // @param _unLockTime to fix the unlocktime for the budget period
@@ -59,95 +63,97 @@ contract BudgetDapp {
         owner = payable(msg.sender);
     
     }
+    
+    function changeOwner(address _newOwner) public isOwner returns (bool success) {
+        require(_newOwner != 0, "No new onwer entered");
+
+        onwer = _newOwner;
+        emit ChangeOwner(msg.sender, _newOwner);
+
+        return true;
+    }
+
+    function changeUnlockTime(_unlockTime) public isOnwer returns (bool success){
+        require(block.timestamp < _unlockTime, "Increase time please");
+        
+        require(unlockTimeChangeCount < unlockTimeCount, "Change time reached");
+  
+        unlockTime = _unlockTime;
+        emit ChangeUnlockTime(msg.sender, _unlockTime);
+        
+        unlockTimeChangeCount++;
+        
+        return true;
+    }
 
     // @notice this function is used to create new budget and add to the list of budgets
-    function createBudget(string memory _item, uint256 _maticAmount) public {
-       
-        if (Budgets[budgetCount].created == true) {
-            revert("Item already created");
-        }
+    function createBudget(string memory _content, uint256 _maticAmount) public isOwner {
+        require(Budgets[budgetCount].created == false, "Item already created");
 
-        budgetItems memory itemOnlist = Budgets[budgetCount];
-        itemOnlist = budgetItems(budgetCount, _maticAmount, _item, true);
-        myBudgetList.push(itemOnlist);
-        
+        budgetItem memory item = Budgets[budgetCount];
+        item.ID = budgetCount;
+        item.maticAmount = _maticAmount;
+        item.content = _content;
+        item.created = true;
 
-        emit BudgetCreated(budgetCount, _maticAmount, _item, true);
+        myBudgetList.push(item);
+
+        emit BudgetCreated(budgetCount, _maticAmount, _content, true);
         budgetCount++;
     }
 
     // @notice this function is used to read the list of budget created on the contract
-    function myList() external view returns(budgetItems[] memory){
+    function getBudget() external view returns (budgetItem[] memory) {
         return myBudgetList;
-    } 
-
-    // @notice this funtion is used to read the item of the list according to the item id
-    function listItem(uint256 _ID) external view returns(budgetItems memory value){
-        uint256 length = myBudgetList.length;
-
-        for(uint256 i; i < length;i++){
-        
-            value =  myBudgetList[_ID];   
-        }
     }
 
-    function balance() public view returns(uint256 contractBalance){
+    function getBudgetBalance() public view returns (uint256) {
         return ERC20(maticContractAddress).balanceOf(address(this));
     }
 
     // @notice this function is used to remove item from the list of budgets
-    function removeItems(uint256 _ID) public {
-     if (msg.sender != owner) {
-            revert notOwner();
-        }
+    function removeBudget (uint256 _ID) public isOnwer{
         uint256 length = myBudgetList.length;
 
-        for(uint256 i; i < length;i++){
-    
-            delete myBudgetList[_ID];   
+        for (uint256 i = 0; i < length; i++) {
+            if (myBudgetList[i].ID == _ID) {
+                delete myBudgetList[i];
+                break;
+            }
         }
 
+        emit ItemRemoved(_ID);
     }
 
     // @notice this function is used to withdraw the total token locked up on the contract and transfer to owner
-    function withdraw() public {
-        if (block.timestamp <= unlockTime) 
-        revert ("Not Yet Time");
-        
-        if (msg.sender != owner){
-            revert ("Not Owner");
-        
-        } 
-            
+    function withdraw() public isOnwer {
+        require(block.timestamp >= unlockTime, "Not yet time");
 
         uint256 amount = ERC20(maticContractAddress).balanceOf(address(this));
-
-        if(amount == 0) revert amountEqualZero();
-
-        emit Withdrawal(amount, block.timestamp);
+        require(amount > 0, "Balance is too low");
 
         bool success = ERC20(maticContractAddress).transfer(owner, amount);
-        if(!success) revert transferFailed();
+        require(success, "Transaction failed.");
 
+        emit Withdrawal(amount, block.timestamp);
     }
 
     // @notice this function is used to deposit funds for future use at the end of unlocktime
-    function depositBudgetFund(uint256 amount) public payable {
+   function depositIntoBudget(uint256 amount) public isOnwer payable {
         require(msg.sender != address(0), "Invalid Address");
+
         require(
             ERC20(maticContractAddress).balanceOf(msg.sender) > 0,
             "Insufficient matic balance"
         );
+        require(amount >= 0, "Amount is equal to zero");
 
-        if(amount == 0) revert amountEqualZero();
-
-       bool success = ERC20(maticContractAddress).transferFrom(
+        bool success = ERC20(maticContractAddress).transferFrom(
             msg.sender,
             address(this),
             amount
         );
-
-        if(!success) revert transferFailed();
+        require(success, "Transaction failed.");
 
         initialBudgetFunds += amount;
     }
